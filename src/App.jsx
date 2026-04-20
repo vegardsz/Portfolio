@@ -21,14 +21,14 @@ const ProjectSegmentSection = lazy(() => import("./components/ProjectSegmentSect
 const projects = [
   {
     slug: "eudi-wallet",
-    title: "Envisioned a sovereign European digital infrastructure",
+    title: "Envisioning a sovereign European digital infrastructure",
     intro:
       "My master's thesis from AHO, developed with Hans Jacob Wernersen, explores how a Big Tech shaped digital landscape affects wellbeing and control. Through three concepts and tangible artifacts, we present a realistic EU-based alternative designed to put people first.",
     landingIntro:
       "My master's thesis from AHO explores how Big Tech shapes wellbeing and control, and proposes a more human, EU-based digital alternative through speculative concepts and artifacts.",
-    services: "Research, UX/UI Design, Product Strategy",
+    services: "Strategic Design",
     year: "2025",
-    client: "Public Sector Innovation Lab",
+    client: "Master Thesis",
     format: "portrait",
     image: "/img/sovereign-img.png",
     tags: ["Student project", "Public sector"],
@@ -74,7 +74,7 @@ const projects = [
   },
   {
     slug: "privacy-pass",
-    title: "Explored the realization of a city life initiative",
+    title: "Exploring the realization of a city life initiative",
     intro:
       "Designing an application portal for Oslo Kommune’s Levende gater initiative, simplifying citizen applications and enabling efficient municipal processing.",
     services: "Service Design, Interaction Design",
@@ -125,13 +125,13 @@ const projects = [
   },
   {
     slug: "road-work-applications",
-    title: "Optimized processing of road work applications",
+    title: "Optimizing processing of road work applications",
     intro:
       "On this project, I worked as a UX designer on an AI-solution, aimed to provide case workers an efficient way to look up rules and regulations.",
     landingIntro:
       "On this project, I worked as a UX designer on an AI-solution, aimed to provide case workers an efficient way to look up rules and regulations.",
     services: "UX Design, UI, Front-end development",
-    year: "2024",
+    year: "2025",
     client: "Public sector",
     format: "landscape",
     image: "/img/kibok.png",
@@ -172,19 +172,20 @@ const projects = [
   },
   {
     slug: "democratizing-eye-health",
-    title: "Democratized eye health",
+    title: "Building a clinically centered eye health platform",
     intro:
       "The project involved consolidating two existing resource platforms for eye health practitioners into a single, enhanced platform that adds additional value.",
     landingIntro:
       "The project involved consolidating two existing resource platforms for eye health practitioners into a single, enhanced platform that adds additional value.",
     services: "UX Design, Service design, User research",
-    year: "2023",
-    client: "Eye health sector",
+    year: "2026",
+    client: "Eye ware retailer",
     format: "compact",
+    image: "/img/eye_health_header.png",
     tags: ["Client project", "Private sector"],
     contributions: ["User Research", "Platform Analysis", "UX Architecture", "Wireframing"],
     context:
-      "The project set out to rethink an existing learning platform that, despite having a lot of content, wasn't truly working for its users. Finding relevant information took too many steps, and much of the content didn't translate well into day-to-day practice. We then needed to rethink this; how can we improve on this, and what is valuable to add?",
+      "The project involved creating a new clinically centered website, aimed to provide eye health practitioners inspiration and assistance in their work day. Building on the client's existing resources, we aimed to identify the current value and explore how we could enhance it with new contributions.",
     deliveryText:
       "As a UX/Service designer on the project, I worked hands-on from early user insight to concrete product direction. I ran user interviews to understand how professionals actually learn and make decisions in practice—what they need in the moment, what slows them down, and what keeps them engaged. From there, we distilled patterns into a set of mindsets and use cases that grounded the whole project. Instead of becoming abstract outputs, these directly shaped the MVP for the platform. By creating early prototypes and sketches, we could define how the platform should be structured and what it should contain early in the process. This was important, as the time dedicated for development was pretty short. I then translated this into wireframes (which a graphic designer polished up) of the entire platform, laying the groundwork for how the platform should be structured both on page and site level.",
     delivery: {
@@ -196,26 +197,32 @@ const projects = [
           id: "eye-mindsets",
           label: "Mindsets",
           title: "Mindsets",
-          description: "Content to be placed later."
+          image: "/img/mindsets.png",
+          description:
+            "Through extensive user interviews, we developed mindsets that represent different motivations for engaging with learning materials. These mindsets allowed us to identify key areas where we could add value."
         },
         {
           id: "eye-use-cases",
           label: "Use cases",
           title: "Use cases",
-          description: "Content to be placed later."
+          image: "/img/use_cases_eye.png",
+          description:
+            "Starting with our foundational mindsets and the client's desired market position, we can begin to explore different concepts. By developing detailed use cases, we can evaluate the value and feasibility of various ideas, ultimately helping us focus on two key features for the new platform."
         },
         {
           id: "eye-wireframes",
           label: "Wireframes",
           title: "Wireframes",
-          description: "Content to be placed later."
+          image: "/img/wireframes.png",
+          description:
+            "When aligned on the MVP, I could start mapping out the platform as a whole, detailing every page, content and key interactions through wireframes. These wireframes were then turned into finished designs by a graphic designer."
         }
       ]
     }
   },
   {
     slug: "nrk-dock",
-    title: "Connected NRK's offering through new interaction explorations",
+    title: "Connecting NRK's offering through new interaction explorations",
     intro:
       "How can NRK compete with commercial competitors in grasping peoples attention? And how can NRK be a trustworthy actor that keeps people up to date while still allowing people to consume digital media in a preferred pace? The NRK DOCK explores how a dock mode can be utilised as distraction free zone, where the user can get informed and entertained in their own preferred way, pace and rythm. The project was done in collaboration with NRK.",
     landingIntro:
@@ -266,7 +273,7 @@ const projects = [
   }
 ];
 
-const HIDDEN_PROJECT_SLUGS = new Set(["democratizing-eye-health"]);
+const HIDDEN_PROJECT_SLUGS = new Set([]);
 const PROJECT_DISPLAY_ORDER = ["road-work-applications", "privacy-pass", "nrk-dock", "eudi-wallet"];
 const visibleProjects = projects
   .filter((project) => !HIDDEN_PROJECT_SLUGS.has(project.slug))
@@ -343,6 +350,9 @@ function getOptimizedImageSrc(src) {
   if (!src || !RASTER_IMAGE_PATTERN.test(src)) return src;
   if (src.includes("/img/nrk_")) return src;
   if (src.includes("_nrk.png")) return src;
+  if (src.includes("/img/eye_health_header.png")) return src;
+  if (src.includes("/img/eye_health_hero2.png")) return src;
+  if (src.includes("/img/mindsets.png") || src.includes("/img/use_cases_eye.png") || src.includes("/img/wireframes.png")) return src;
   if (src.includes("/img/vg.png") || src.includes("/img/yr.png") || src.includes("/img/navigation.png")) return src;
   return src.replace(RASTER_IMAGE_PATTERN, ".webp$2");
 }
@@ -501,10 +511,22 @@ function App() {
 
   return (
     <div
-      key={isHonorableMentionsPage ? "honorable-mentions" : slug ? `project-${slug}` : "landing"}
+      key={
+        isHonorableMentionsPage
+          ? "honorable-mentions"
+          : slug
+            ? `project-${slug}`
+            : "landing"
+      }
       className="motion-safe:animate-page-fade-in min-h-dvh"
     >
-      {isHonorableMentionsPage ? <HonorableMentionsPage /> : project ? <ProjectPage project={project} /> : <LandingPage />}
+      {isHonorableMentionsPage ? (
+        <HonorableMentionsPage />
+      ) : project ? (
+        <ProjectPage project={project} />
+      ) : (
+        <LandingPage />
+      )}
     </div>
   );
 }
@@ -725,12 +747,14 @@ function LandingPage() {
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        className={`h-full w-full rounded-xl object-cover ${
+                        className={`h-full w-full rounded-xl ${
                           project.slug === "eudi-wallet"
-                            ? "scale-[1.08] object-[82%_center]"
+                            ? "object-cover scale-[1.08] object-[82%_center]"
                             : project.slug === "road-work-applications"
-                              ? "scale-[1.08] object-[92%_center]"
-                              : "object-center"
+                              ? "object-cover scale-[1.08] object-[92%_center]"
+                              : project.slug === "democratizing-eye-health"
+                                ? "bg-[#dcebe3] object-contain object-center"
+                              : "object-cover object-center"
                         }`}
                       />
                       {project.slug === "eudi-wallet" ? (
@@ -792,12 +816,14 @@ function LandingPage() {
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
-                      className={`h-full w-full rounded-xl object-cover ${
+                    className={`h-full w-full rounded-xl ${
                         project.slug === "eudi-wallet"
-                          ? "scale-[1.08] object-[82%_center]"
+                        ? "object-cover scale-[1.08] object-[82%_center]"
                           : project.slug === "road-work-applications"
-                            ? "scale-[1.08] object-[92%_center]"
-                            : "object-center"
+                          ? "object-cover scale-[1.08] object-[92%_center]"
+                          : project.slug === "democratizing-eye-health"
+                            ? "bg-[#dcebe3] object-contain object-center"
+                          : "object-cover object-center"
                       }`}
                     />
                     {project.slug === "eudi-wallet" ? (
@@ -951,6 +977,7 @@ function ProjectPage({ project }) {
   const isRewireProject = project.slug === "eudi-wallet";
   const isKibokProject = project.slug === "road-work-applications";
   const isLivingStreetsProject = project.slug === "privacy-pass";
+  const isEyeHealthProject = project.slug === "democratizing-eye-health";
   useImagePreload(project.image);
 
   return (
@@ -1054,6 +1081,28 @@ function ProjectPage({ project }) {
                 decoding="async"
                 className="block h-full w-full object-cover object-center"
               />
+            </div>
+          ) : isEyeHealthProject ? (
+            <div className="grid h-[340px] w-full grid-cols-2 gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+              <div className="flex h-full w-full items-center justify-center">
+                <img
+                  src={getOptimizedImageSrc(project.image)}
+                  alt={project.title}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="max-h-full max-w-full object-contain object-center"
+                />
+              </div>
+              <div className="flex h-full w-full items-center justify-center">
+                <img
+                  src={getOptimizedImageSrc("/img/eye_health_hero2.png")}
+                  alt={`${project.title} collage detail`}
+                  loading="eager"
+                  decoding="async"
+                  className="max-h-full max-w-full object-contain object-center"
+                />
+              </div>
             </div>
           ) : isKibokProject ? (
             <div className="grid h-[340px] w-full grid-cols-[0.95fr_1.05fr] gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">

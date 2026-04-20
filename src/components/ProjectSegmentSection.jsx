@@ -7,6 +7,7 @@ function getOptimizedImageSrc(src) {
   if (!src || !RASTER_IMAGE_PATTERN.test(src)) return src;
   if (src.includes("/img/nrk_")) return src;
   if (/_nrk(?:_\d+)?\.png(\?.*)?$/i.test(src)) return src;
+  if (src.includes("/img/mindsets.png") || src.includes("/img/use_cases_eye.png") || src.includes("/img/wireframes.png")) return src;
   return src.replace(RASTER_IMAGE_PATTERN, ".webp$2");
 }
 
@@ -84,9 +85,17 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
   const isRoadUxSegment = activeSegment.id === "road-ux";
   const isRoadFrontEndSegment = projectSlug === "road-work-applications" && activeSegment.id === "road-front-end";
   const isNrkProject = projectSlug === "nrk-dock";
+  const isEyeHealthProject = projectSlug === "democratizing-eye-health";
+  const isEyeMindsetsSegment = isEyeHealthProject && activeSegment.id === "eye-mindsets";
   const isNrkContentSegment = isNrkProject && activeSegment.id === "nrk-content";
   const isNrkSurfaceSegment = isNrkProject && activeSegment.id === "nrk-surface";
   const isNrkUseCasesSegment = isNrkProject && activeSegment.id === "nrk-use-cases";
+  const isEyeImageSegment =
+    isEyeHealthProject &&
+    (activeSegment.id === "eye-mindsets" || activeSegment.id === "eye-use-cases" || activeSegment.id === "eye-wireframes");
+  const isEyeStackedSegment =
+    isEyeHealthProject &&
+    (activeSegment.id === "eye-use-cases" || activeSegment.id === "eye-wireframes");
   const isNrkTwoColumnLayout = isNrkProject && !isNrkSurfaceSegment && !isNrkUseCasesSegment;
   const isNrkImageSegment = isNrkProject && (activeSegment.id === "nrk-content" || activeSegment.id === "nrk-surface");
   const hasCarousel = Array.isArray(activeSegment.images) && activeSegment.images.length > 0;
@@ -311,7 +320,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
           isNrkProject ? "min-h-[760px] md:min-h-[860px]" : ""
         }`}
       >
-      {currentBackgroundSrc ? (
+      {currentBackgroundSrc && !isEyeHealthProject ? (
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 left-1/2 w-dvw -translate-x-1/2 overflow-hidden bg-black"
@@ -347,7 +356,11 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
       <div className="relative z-10">
       <div ref={controlsRef} className="flex justify-center">
         <div
-          className="inline-flex items-center gap-1 rounded-full bg-white/10 p-1.5 backdrop-blur-sm ring-1 ring-white/15"
+          className={`inline-flex items-center gap-1 rounded-full p-1.5 ${
+            isEyeHealthProject
+              ? "bg-zinc-100 ring-1 ring-zinc-300"
+              : "bg-white/10 backdrop-blur-sm ring-1 ring-white/15"
+          }`}
         >
           {segments.map((segment) => {
             const isActive = segment.id === activeSegment.id;
@@ -359,9 +372,13 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                   setActiveId(segment.id);
                 }}
                 className={`rounded-full px-6 py-2.5 text-sm font-medium transition duration-700 ease-out ${
-                  isActive
-                    ? "bg-white/20 text-white shadow-sm backdrop-blur-sm"
-                    : "text-white/75 hover:text-white"
+                  isEyeHealthProject
+                    ? isActive
+                      ? "bg-white text-zinc-900 shadow-sm ring-1 ring-zinc-300"
+                      : "text-zinc-600 hover:text-zinc-900"
+                    : isActive
+                      ? "bg-white/20 text-white shadow-sm backdrop-blur-sm"
+                      : "text-white/75 hover:text-white"
                 }`}
               >
                 {segment.label}
@@ -395,8 +412,10 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
               ? "mt-14 gap-6 md:mt-14 md:gap-8"
               : "mt-20 gap-8 md:gap-12"
         } ${
-          isNrkSurfaceSegment || isNrkUseCasesSegment || isVerticalWide || isCompactSegment
+          isNrkSurfaceSegment || isNrkUseCasesSegment || isVerticalWide || isCompactSegment || isEyeStackedSegment
             ? ""
+            : isEyeMindsetsSegment
+              ? "md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]"
             : isNrkTwoColumnLayout
               ? "md:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]"
               : "md:grid-cols-2"
@@ -410,14 +429,18 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                 : isNrkUseCasesSegment
                   ? "w-full"
                   : "w-full min-h-[9.5rem] md:min-h-[10.5rem] md:max-w-[24rem]"
+              : isEyeMindsetsSegment
+                ? "w-full md:max-w-[20rem]"
               : ""
           }
         >
-          <h3 className="text-2xl font-normal tracking-tight text-white md:text-3xl">
+          <h3 className={`text-2xl font-normal tracking-tight md:text-3xl ${isEyeHealthProject ? "text-zinc-900" : "text-white"}`}>
             {activeSegment.title}
           </h3>
           <p
-            className={`text-base leading-relaxed text-white md:text-lg ${
+            className={`text-base leading-relaxed md:text-lg ${
+              isEyeHealthProject ? "text-zinc-700" : "text-white"
+            } ${
               isNrkSurfaceSegment || isNrkUseCasesSegment ? "mt-3 md:mt-3.5" : "mt-4"
             }`}
           >
@@ -660,6 +683,8 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                 className={
                   isSystem
                     ? "relative flex items-start justify-end overflow-hidden rounded-xl bg-[#f5f5f5] ring-1 ring-black/5"
+                    : isEyeImageSegment
+                      ? "mx-auto flex w-full max-w-full items-center justify-center overflow-hidden rounded-xl max-h-[min(72vh,620px)] md:max-h-[min(72vh,700px)]"
                     : isNrkImageSegment
                       ? isNrkSurfaceSegment
                         ? "mx-auto flex w-full max-w-[min(100%,56rem)] items-center justify-center overflow-visible px-0 py-1 md:px-2 md:py-2 max-h-[min(72vh,640px)] md:max-h-[min(72vh,720px)]"
@@ -689,7 +714,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                   className={`${isNrkContentSegment ? "mx-auto block" : "block self-start"} ${
                     isNrkImageSegment ? "rounded-none" : "rounded-xl"
                   } ${
-                    isNrkSurfaceSegment
+                    isEyeImageSegment
+                      ? "h-auto w-full max-w-full object-contain max-h-[min(70vh,560px)] md:max-h-[min(70vh,640px)]"
+                      : isNrkSurfaceSegment
                       ? "h-auto w-full max-w-full origin-center object-contain max-h-[min(72vh,560px)] md:max-h-[min(72vh,640px)] scale-100 md:scale-[1.03]"
                       : isNrkContentSegment
                       ? "h-auto w-full max-w-full object-contain object-center max-h-[min(78vh,720px)] md:max-h-[min(78vh,800px)]"
