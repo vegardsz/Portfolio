@@ -27,16 +27,16 @@ const projects = [
     landingIntro:
       "My master's thesis from AHO explores how Big Tech shapes wellbeing and control, and proposes a more human, EU-based digital alternative through speculative concepts and artifacts.",
     services: "Research, UX/UI Design, Product Strategy",
-    year: "2024",
+    year: "2025",
     client: "Public Sector Innovation Lab",
     format: "portrait",
     image: "/img/sovereign-img.png",
     tags: ["Student project", "Public sector"],
     contributions: ["Speculative Design", "Systems Thinking", "Concept Development", "Artifact Prototyping"],
     context:
-      "What kickstarted this project was a Norwegian digitalization strategy from 2024, which main tag line was for Norway to become the \"most digitalized country in the world\". This intrigued us; why \"most\" and not \"best\"? Also, as our lives has turned more and more digital, we keep hearing of people trying to distance themselves from \"hyperconnectivity\", by setting screen time limits and finding ways to improve their \"digital wellbeing\". However, we felt that \"digital wellbeing\" is something that shouldnt nessecarily be burdened by people alone; doesnt big tech companies and service providers share some of the responsibility? Therefore, our aim with this thesis is to explore how a shift in power dynamics could change the way we relate to digital media.",
+      "The project was sparked by Norway’s 2024 digitalization strategy, aiming to become the “most digitalized country in the world” — prompting us to question why not the “best.” As people increasingly try to manage hyperconnectivity on their own, we asked whether digital wellbeing should really be an individual responsibility, or a shared one across platforms and providers. The thesis therefore investigates how a shift in power dynamics could reshape our relationship with digital services.",
     deliveryText:
-      "To explore this, we created tangible artifacts, set in a speculative scenario where EU has created firm boundaries and democratised innovation. These artifacts then become representations of an alternate digital world, where peoples wellbeing and values are set first, that we can use to get peoples reflections.",
+      "To explore this, we developed a set of tangible artifacts within a speculative, yet realistic, EU-based scenario where innovation is more democratised and bounded. These artifacts act as representations of an alternative digital ecosystem, designed to put people’s wellbeing and values first, and serve as tools to provoke reflection and discussion.",
     delivery: {
       eyebrow: "Delivery",
       intro:
@@ -85,7 +85,7 @@ const projects = [
     tags: ["Client project", "Public sector"],
     contributions: ["Service Blueprinting", "Stakeholder Alignment", "Flow Prototyping", "Public Sector UX"],
     context:
-      "Early in the project, we identified that designing a simple application flow required a deeper understanding of the municipal system behind it. Applying to use public street space involves multiple departments, each with their own regulations and operational constraints. To navigate this complexity, we used prototypes as a primary research tool. By presenting early concepts to municipal employees and citizens, we facilitated concrete discussions around needs, edge cases, and feasibility. A key insight was the importance of balancing user accessibility with institutional requirements. For example, emergency services (e.g. fire and rescue) must maintain access to streets at all times, even during events. This revealed that the challenge was not only interface design, but also systemic coordination across departments. As a result, the project scope evolved from a purely digital solution to a combined service and system design approach.",
+      "Designing an application portal for Oslo Kommune’s Levende gater initiative meant simplifying citizen applications while supporting efficient municipal processing. Creating a clear application flow required understanding the underlying system, where multiple departments and strict constraints are involved. We used prototypes early to align stakeholders and uncover edge cases, shifting the project from a simple digital form to a broader service and system design effort.",
     deliveryText:
       "The final delivery consisted of two interconnected components, that demonstrate how upfront systemic planning can simplify both the user experience and administrative workflows.",
     delivery: {
@@ -221,16 +221,15 @@ const projects = [
     landingIntro:
       "How NRK's offering was connected across experiences, with hands-on exploration of new interaction directions.",
     services: "Service Design, UX Design",
-    year: "2026",
+    year: "2024",
     client: "NRK",
     format: "landscape",
     image: "/img/nrk_header.png",
     tags: ["Client project", "Media"],
     contributions: ["Discovery", "UX Strategy", "Concept Design", "Interaction Design"],
-    context:
-      "NRK Dock has been added as a fifth project so it is available from navigation, landing page listings, and a dedicated project page route.",
+    context: "",
     deliveryText:
-      "Delivery content can be updated when project material is finalized. The section scaffolding is in place to avoid layout changes later.",
+      "The delivery was a semi-functional prototype, aimed to both test the docking concept in itself, but also explore how NRK content could be interacted with in various ways.",
     delivery: {
       eyebrow: "Delivery",
       intro:
@@ -242,7 +241,8 @@ const projects = [
           title: "Content",
           image: "/img/nrk_2.png",
           backgroundImage: "/img/content_nrk.png",
-          description: "Content to be placed later."
+          description:
+            "Through a thorough analysis of NRK's content library, we discovered the diverse ways in which users engage with and interact with their offerings. This insight led us to create a series of content \"modules\" that delve into different methods of engaging with NRK's material."
         },
         {
           id: "nrk-surface",
@@ -250,7 +250,8 @@ const projects = [
           title: "Surface",
           image: "/img/nrk_3.png",
           backgroundImage: "/img/surface_nrk_2.png",
-          description: "Content to be placed later."
+          description:
+            "Content can be manifested in various ways on the media surface. It can engage users with various depth of interactions, such as reading a news article, or to simply be an informational display, triggered by a simple click."
         },
         {
           id: "nrk-use-cases",
@@ -258,7 +259,7 @@ const projects = [
           title: "Use cases",
           video: "https://youtu.be/fADnQqy_gqE",
           backgroundImage: "/img/use_cases_nrk.png",
-          description: "Content to be placed later."
+          description: "Through prototyping (both in Figma and Code), we explore various use cases of this concept."
         }
       ]
     }
@@ -708,13 +709,45 @@ function LandingPage() {
             }`}
             key={project.slug}
           >
-            <div className={`flex min-h-[300px] h-full flex-col ${index % 2 === 0 ? "order-1" : "order-2"}`}>
+            <div className={`flex min-h-[300px] h-full flex-col ${index % 2 === 0 ? "md:order-1" : "md:order-2"}`}>
               <p className="mb-3 text-xs font-medium uppercase tracking-[0.1em] text-[#3f5330] md:text-sm">
                 {PROJECT_SHORT_TITLES[project.slug]}
               </p>
               <h2 className="max-w-xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
                 {project.title}
               </h2>
+              <div className="mt-5 h-[340px] w-full md:hidden">
+                <a href={`/project/${project.slug}`} className="relative block h-full w-full">
+                  {project.image ? (
+                    <>
+                      <img
+                        src={getOptimizedImageSrc(project.image)}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        className={`h-full w-full rounded-xl object-cover ${
+                          project.slug === "eudi-wallet"
+                            ? "scale-[1.08] object-[82%_center]"
+                            : project.slug === "road-work-applications"
+                              ? "scale-[1.08] object-[92%_center]"
+                              : "object-center"
+                        }`}
+                      />
+                      {project.slug === "eudi-wallet" ? (
+                        <img
+                          src="/img/aho_awards.png"
+                          alt="AHO Awards stamp"
+                          loading="lazy"
+                          decoding="async"
+                          className="pointer-events-none absolute bottom-0 left-0 z-10 h-auto w-[126px] origin-bottom-left scale-110 drop-shadow-[0_8px_20px_rgba(0,0,0,0.28)]"
+                        />
+                      ) : null}
+                    </>
+                  ) : (
+                    <div className="placeholder-check h-full w-full rounded-xl" />
+                  )}
+                </a>
+              </div>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
                 {project.landingIntro ?? project.intro}
               </p>
@@ -747,7 +780,9 @@ function LandingPage() {
               </a>
             </div>
             <div
-              className={`h-[340px] md:h-[460px] lg:h-[520px] w-full ${index % 2 === 0 ? "order-2" : "order-1"}`}
+              className={`hidden h-[340px] w-full md:block md:h-[460px] lg:h-[520px] ${
+                index % 2 === 0 ? "md:order-2" : "md:order-1"
+              }`}
             >
               <a href={`/project/${project.slug}`} className="relative block h-full w-full">
                 {project.image ? (
@@ -782,7 +817,7 @@ function LandingPage() {
             </div>
           </article>
         ))}
-        <article className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-[1fr_480px] md:gap-12">
+        <article className="grid grid-cols-1 items-stretch gap-8">
           <div className="flex min-h-[300px] h-full flex-col">
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.1em] text-[#3f5330] md:text-sm">Honorable mentions</p>
             <h2 className="max-w-xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
@@ -791,8 +826,32 @@ function LandingPage() {
             <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
               A lightweight collection of other projects and explorations that are worth highlighting.
             </p>
+            <div className="mt-6 h-[240px] w-full md:mt-8 md:h-[300px] lg:h-[340px]">
+              <a href={HONORABLE_MENTIONS_PATH} className="relative block h-full w-full">
+                <div className="grid h-full w-full grid-cols-2 gap-2 rounded-xl md:gap-3">
+                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 p-2">
+                    <img
+                      src={getOptimizedImageSrc("/img/vg.png")}
+                      alt="VG preview"
+                      loading="lazy"
+                      decoding="async"
+                      className="max-h-full max-w-full object-contain object-center"
+                    />
+                  </div>
+                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 p-2">
+                    <img
+                      src={getOptimizedImageSrc("/img/navigation.png")}
+                      alt="Navigation preview"
+                      loading="lazy"
+                      decoding="async"
+                      className="max-h-full max-w-full object-contain object-center"
+                    />
+                  </div>
+                </div>
+              </a>
+            </div>
             <a
-              className="group mt-auto inline-flex items-center gap-2.5 self-start pt-9 text-base font-medium text-zinc-700 no-underline transition-colors motion-reduce:transition-none hover:text-zinc-900"
+              className="group mt-10 inline-flex items-center gap-2.5 self-start text-base font-medium text-zinc-700 no-underline transition-colors motion-reduce:transition-none hover:text-zinc-900 md:mt-12"
               href={HONORABLE_MENTIONS_PATH}
             >
               <span>Explore collection</span>
@@ -805,19 +864,6 @@ function LandingPage() {
                 <path d="M2.5 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 <path d="M9.5 5 13 8l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
-          </div>
-          <div className="h-[340px] md:h-[460px] lg:h-[520px] w-full">
-            <a href={HONORABLE_MENTIONS_PATH} className="relative block h-full w-full">
-              <div className="h-full w-full overflow-hidden rounded-xl bg-zinc-100 p-2 md:p-3">
-                <img
-                  src={getOptimizedImageSrc(HONORABLE_MENTIONS[0].image)}
-                  alt="Honorable mentions preview"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-contain object-center"
-                />
-              </div>
             </a>
           </div>
         </article>
@@ -906,6 +952,7 @@ function LandingPage() {
 
 function ProjectPage({ project }) {
   const isRewireProject = project.slug === "eudi-wallet";
+  const isLivingStreetsProject = project.slug === "privacy-pass";
   useImagePreload(project.image);
 
   return (
@@ -990,6 +1037,24 @@ function ProjectPage({ project }) {
                 loading="eager"
                 decoding="async"
                 className="block h-full w-full object-cover object-[50%_46%]"
+              />
+            </div>
+          ) : isLivingStreetsProject ? (
+            <div className="grid h-[340px] w-full grid-cols-2 gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+              <img
+                src={getOptimizedImageSrc(project.image)}
+                alt={project.title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="block h-full w-full object-cover object-center"
+              />
+              <img
+                src="/img/levende_gater2.png"
+                alt={`${project.title} collage detail`}
+                loading="eager"
+                decoding="async"
+                className="block h-full w-full object-cover object-center"
               />
             </div>
           ) : (

@@ -406,7 +406,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
           className={
             isNrkProject
               ? isNrkSurfaceSegment
-                ? "w-full md:max-w-[24rem]"
+                ? "w-full md:max-w-[38rem] lg:max-w-[42rem]"
                 : isNrkUseCasesSegment
                   ? "w-full"
                   : "w-full min-h-[9.5rem] md:min-h-[10.5rem] md:max-w-[24rem]"
