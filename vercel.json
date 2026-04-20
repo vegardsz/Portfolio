@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/project/(.*)",
+      "destination": "/"
+    },
+    {
+      "source": "/honorable-mentions",
       "destination": "/"
     }
   ]
