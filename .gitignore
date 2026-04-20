@@ -5,4 +5,6 @@ dist
 build
 .env
 .env.local
-.DS_Storeimg/nrk_movie.mov
+.DS_Store
+img/.DS_Store
+img/nrk_movie.mov
