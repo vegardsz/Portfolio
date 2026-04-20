@@ -875,9 +875,6 @@ function LandingPage() {
         className="scroll-mt-28 mt-24 border-t border-zinc-200 pb-16 pt-28 text-center md:mt-28 md:pb-20 md:pt-32"
       >
         <h2 className="text-3xl font-normal tracking-tight text-zinc-900 md:text-4xl">Get in touch</h2>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-600">
-          Placeholder text for a short contact intro that invites collaboration and new project conversations.
-        </p>
         <button
           type="button"
           onClick={handleContactButtonClick}
