@@ -952,6 +952,7 @@ function LandingPage() {
 
 function ProjectPage({ project }) {
   const isRewireProject = project.slug === "eudi-wallet";
+  const isKibokProject = project.slug === "road-work-applications";
   const isLivingStreetsProject = project.slug === "privacy-pass";
   useImagePreload(project.image);
 
@@ -1055,6 +1056,24 @@ function ProjectPage({ project }) {
                 loading="eager"
                 decoding="async"
                 className="block h-full w-full object-cover object-center"
+              />
+            </div>
+          ) : isKibokProject ? (
+            <div className="grid h-[340px] w-full grid-cols-[0.95fr_1.05fr] gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+              <img
+                src={getOptimizedImageSrc(project.image)}
+                alt={project.title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="block h-full w-full object-cover object-center"
+              />
+              <img
+                src={getOptimizedImageSrc("/img/kibbok_post.png")}
+                alt={`${project.title} collage detail`}
+                loading="eager"
+                decoding="async"
+                className="block h-full w-full object-cover object-[42%_center]"
               />
             </div>
           ) : (
