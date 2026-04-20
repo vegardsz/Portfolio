@@ -658,7 +658,7 @@ function LandingPage() {
             ) : null}
           </h1>
           <h2 className="mt-5 max-w-3xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
-            I am Vegard, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
+            I am Vegard Szilvay, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
           </h2>
         </div>
         <div className="relative w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px] md:justify-self-start">
