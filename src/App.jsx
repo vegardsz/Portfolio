@@ -28,7 +28,7 @@ const projects = [
       "My master's thesis from AHO explores how Big Tech shapes wellbeing and control, and proposes a more human, EU-based digital alternative through speculative concepts and artifacts.",
     services: "Strategic Design",
     year: "2025",
-    client: "Master Thesis",
+    client: "Master Thesis (AHO)",
     format: "portrait",
     image: "/img/sovereign-img.png",
     tags: ["Student project", "Public sector"],
@@ -589,6 +589,15 @@ function LandingPage() {
       window.scrollTo({ top, behavior: scrollBehavior });
     }, 180);
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    if (window.location.hash !== "#contact") return undefined;
+    const el = contactSectionRef.current;
+    if (!el) return undefined;
+    const top = el.getBoundingClientRect().top + window.scrollY - (NAVBAR_OFFSET - 24);
+    window.scrollTo({ top, behavior: "auto" });
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
