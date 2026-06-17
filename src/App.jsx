@@ -36,7 +36,8 @@ const projects = [
     context:
       "The project was sparked by Norway’s 2024 digitalization strategy, aiming to become the “most digitalized country in the world” — prompting us to question why not the “best.” As people increasingly try to manage hyperconnectivity on their own, we asked whether digital wellbeing should really be an individual responsibility, or a shared one across platforms and providers. The thesis therefore investigates how a shift in power dynamics could reshape our relationship with digital services.",
     deliveryText:
-      "To explore this, we developed a set of tangible artifacts within a speculative, yet realistic, EU-based scenario where innovation is more democratised and bounded. These artifacts act as representations of an alternative digital ecosystem, designed to put people’s wellbeing and values first, and serve as tools to provoke reflection and discussion.",
+      "To explore this, we developed nine tangible artifacts within a speculative, yet realistic, EU-based scenario where innovation is more democratised and bounded. These artifacts act as representations of an alternative digital ecosystem, designed to put people’s wellbeing and values first, and serve as tools to provoke reflection and discussion. Below are some examples of how we move between infrastructural speculation and tangible touchpoints. The rest can be read in our report. ",
+    rapportUrl: "https://nva.sikt.no/registration/01992916783f-42b00332-aa16-4940-b909-b4490a5166e5",
     delivery: {
       eyebrow: "Delivery",
       intro:
@@ -1190,12 +1191,31 @@ function ProjectPage({ project }) {
 
       <EditorialInfoRow
         label="Delivery"
-        className="pb-20 md:pb-24"
+        className="pb-10"
         text={
           project.deliveryText ??
           "Conducted stakeholder mapping, service blueprinting, and iterative UI explorations with accessibility as a default requirement."
         }
       />
+
+      {project.rapportUrl ? (
+        <div className="mb-16 grid grid-cols-1 md:grid-cols-[160px_1fr] md:gap-8">
+          <div className="hidden md:block" />
+          <div>
+            <a
+              href={project.rapportUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-2.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:border-zinc-900 hover:bg-zinc-900 hover:text-white"
+            >
+              Read rapport
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 shrink-0" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ) : null}
 
       <Suspense fallback={<div className="min-h-[520px] md:min-h-[580px]" aria-hidden="true" />}>
         <ProjectSegmentSection
