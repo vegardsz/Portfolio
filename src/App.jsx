@@ -571,8 +571,18 @@ function LandingPage() {
     window.scrollTo({ top: 0, behavior: scrollBehavior });
   };
 
-  const handleContactSubmit = (event) => {
+  const handleContactSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const response = await fetch("https://formspree.io/f/xykaakwl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error("Failed");
+    } catch {
+      return;
+    }
     setIsContactOpen(false);
     setIsSubmitAcknowledged(true);
     setFormData({ email: "", message: "" });
@@ -950,6 +960,7 @@ function LandingPage() {
                 Email
                 <input
                   type="email"
+                  required
                   value={formData.email}
                   onChange={(event) => setFormData((prev) => ({ ...prev, email: event.target.value }))}
                   placeholder="name@email.com"
@@ -960,6 +971,7 @@ function LandingPage() {
                 Message
                 <textarea
                   rows={5}
+                  required
                   value={formData.message}
                   onChange={(event) => setFormData((prev) => ({ ...prev, message: event.target.value }))}
                   placeholder="Tell me a bit about your project..."
