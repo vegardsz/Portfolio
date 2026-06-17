@@ -5,9 +5,6 @@ const RASTER_IMAGE_PATTERN = /\.(png|jpe?g)(\?.*)?$/i;
 
 function getOptimizedImageSrc(src) {
   if (!src || !RASTER_IMAGE_PATTERN.test(src)) return src;
-  if (src.includes("/img/nrk_")) return src;
-  if (/_nrk(?:_\d+)?\.png(\?.*)?$/i.test(src)) return src;
-  if (src.includes("/img/mindsets.png") || src.includes("/img/use_cases_eye.png") || src.includes("/img/wireframes.png")) return src;
   return src.replace(RASTER_IMAGE_PATTERN, ".webp$2");
 }
 
@@ -109,7 +106,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
   const isRoadUxBeforeAfter = hasBeforeAfterSlider && projectSlug === "road-work-applications" && isRoadUxSegment;
   const [beforeAfterRatio, setBeforeAfterRatio] = useState(0.12);
   const [beforeAfterViewerRatio, setBeforeAfterViewerRatio] = useState(0.12);
-  const [beforeAfterAspectRatio, setBeforeAfterAspectRatio] = useState(null);
+  const [beforeAfterAspectRatio, setBeforeAfterAspectRatio] = useState(
+    () => activeSegment?.beforeAfterAspectRatio ?? null
+  );
   const [currentBackgroundSrc, setCurrentBackgroundSrc] = useState(() =>
     getSegmentBackgroundSrc(segments[0], 0, immersiveBackgrounds, immersiveBackgroundMap)
   );
@@ -132,8 +131,8 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
   }, [activeId]);
 
   useEffect(() => {
-    setBeforeAfterAspectRatio(null);
-  }, [activeId]);
+    setBeforeAfterAspectRatio(activeSegment?.beforeAfterAspectRatio ?? null);
+  }, [activeId, activeSegment]);
 
   useEffect(() => {
     const nextBackgroundSrc = getSegmentBackgroundSrc(

@@ -152,6 +152,7 @@ const projects = [
           title: "UX",
           layoutMode: "compact",
           beforeAfterFrameScale: 505,
+          beforeAfterAspectRatio: 1.9064,
           backgroundImage: "/img/ux_backdrop.png",
           beforeImage: "/img/kibok_pre.png",
           afterImage: "/img/kibbok_post.png",
@@ -348,12 +349,6 @@ const RASTER_IMAGE_PATTERN = /\.(png|jpe?g)(\?.*)?$/i;
 
 function getOptimizedImageSrc(src) {
   if (!src || !RASTER_IMAGE_PATTERN.test(src)) return src;
-  if (src.includes("/img/nrk_")) return src;
-  if (src.includes("_nrk.png")) return src;
-  if (src.includes("/img/eye_health_header.png")) return src;
-  if (src.includes("/img/eye_health_hero2.png")) return src;
-  if (src.includes("/img/mindsets.png") || src.includes("/img/use_cases_eye.png") || src.includes("/img/wireframes.png")) return src;
-  if (src.includes("/img/vg.png") || src.includes("/img/yr.png") || src.includes("/img/navigation.png")) return src;
   return src.replace(RASTER_IMAGE_PATTERN, ".webp$2");
 }
 
