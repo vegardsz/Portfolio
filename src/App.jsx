@@ -1057,86 +1057,47 @@ function ProjectPage({ project }) {
       {project.image ? (
         <section className="pb-12 md:pb-14 lg:pb-16">
           {isRewireProject ? (
-            <div className="grid h-[340px] w-full grid-cols-[1.25fr_1.25fr_0.9fr] grid-rows-2 gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+            <div className="w-full overflow-hidden rounded-xl">
               <img
-                src="/img/rewire_collage3.png"
+                src={getOptimizedImageSrc("/img/rewire_header.png")}
                 alt={project.title}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="col-span-2 row-span-2 block h-full w-full object-cover object-center"
-              />
-              <img
-                src={getOptimizedImageSrc(project.image)}
-                alt={`${project.title} collage detail 1`}
-                loading="eager"
-                decoding="async"
-                className="block h-full w-full object-cover object-[52%_48%]"
-              />
-              <img
-                src="/img/rewire_collage1.png"
-                alt={`${project.title} collage detail 2`}
-                loading="eager"
-                decoding="async"
-                className="block h-full w-full object-cover object-[50%_46%]"
+                className="h-auto w-full"
               />
             </div>
           ) : isLivingStreetsProject ? (
-            <div className="grid h-[340px] w-full grid-cols-2 gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+            <div className="w-full overflow-hidden rounded-xl">
               <img
-                src={getOptimizedImageSrc(project.image)}
+                src={getOptimizedImageSrc("/img/levende_gater_header.png")}
                 alt={project.title}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="block h-full w-full object-cover object-center"
-              />
-              <img
-                src="/img/levende_gater2.png"
-                alt={`${project.title} collage detail`}
-                loading="eager"
-                decoding="async"
-                className="block h-full w-full object-cover object-center"
+                className="h-auto w-full"
               />
             </div>
           ) : isEyeHealthProject ? (
-            <div className="grid h-[340px] w-full grid-cols-2 gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
-              <div className="flex h-full w-full items-center justify-center">
-                <img
-                  src={getOptimizedImageSrc(project.image)}
-                  alt={project.title}
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="max-h-full max-w-full object-contain object-center"
-                />
-              </div>
-              <div className="flex h-full w-full items-center justify-center">
-                <img
-                  src={getOptimizedImageSrc("/img/eye_health_hero2.png")}
-                  alt={`${project.title} collage detail`}
-                  loading="eager"
-                  decoding="async"
-                  className="max-h-full max-w-full object-contain object-center"
-                />
-              </div>
-            </div>
-          ) : isKibokProject ? (
-            <div className="grid h-[340px] w-full grid-cols-[0.95fr_1.05fr] gap-2 overflow-hidden rounded-xl md:h-[460px] lg:h-[520px]">
+            <div className="w-full overflow-hidden rounded-xl">
               <img
-                src={getOptimizedImageSrc(project.image)}
+                src={getOptimizedImageSrc("/img/eye_health_header_collage.png")}
                 alt={project.title}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="block h-full w-full object-cover object-center"
+                className="h-auto w-full"
               />
+            </div>
+          ) : isKibokProject ? (
+            <div className="w-full overflow-hidden rounded-xl">
               <img
-                src={getOptimizedImageSrc("/img/kibbok_post.png")}
-                alt={`${project.title} collage detail`}
+                src={getOptimizedImageSrc("/img/kibok_header.png")}
+                alt={project.title}
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
-                className="block h-full w-full object-cover object-[42%_center]"
+                className="h-auto w-full"
               />
             </div>
           ) : (
