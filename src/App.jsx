@@ -970,7 +970,7 @@ function LandingPage() {
                   required
                   value={formData.message}
                   onChange={(event) => setFormData((prev) => ({ ...prev, message: event.target.value }))}
-                  placeholder="Tell me a bit about your project..."
+                  placeholder="How can I help?"
                   className="w-full rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-800 outline-none transition focus:border-[#6b7f4e] focus:bg-white"
                 />
               </label>
