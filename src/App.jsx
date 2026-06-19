@@ -285,21 +285,36 @@ const experience = [
   {
     period: "2025 - Present",
     title: "Accenture Song",
-    text: "Currently working as a Service/UX designer at Accenture Song."
+    text: "Currently working as a Service/UX designer at Accenture Song.",
+    type: "work"
+  },
+  {
+    period: "June 2024 - Aug 2024",
+    title: "Accenture Song",
+    text: "Intern as UX designer at Accenture Song.",
+    type: "work"
   },
   {
     period: "2023 June - 2023 Dec",
     title: "Oslo Kommune",
-    text: "Previously worked as a designer at PBE, applying new solutions at city level initiatives."
+    text: "Previously worked as a designer at PBE, applying new solutions at city level initiatives.",
+    type: "work"
   },
   {
     period: "2020 - 2025",
     title: "AHO",
-    text: "Masters degree in Design at Oslo School of Architecture and Design."
+    text: "Masters degree in Design at Oslo School of Architecture and Design.",
+    type: "education"
   }
 ];
 
 const HERO_HEADLINE_TEXT = "Hello!";
+const HERO_COLLAGE = [
+  { src: "/img/kibok_header.webp",          top: 0,   left: 0,  width: 268, rotate: -6, depth: 3  },
+  { src: "/img/rewire_header.webp",         top: 25,  left: 60, width: 258, rotate: 4,  depth: 8  },
+  { src: "/img/levende_gater_header.webp",  top: 155, left: 10, width: 264, rotate: -3, depth: 13 },
+  { src: "/img/eye_health_header.webp",     top: 185, left: 65, width: 252, rotate: 6,  depth: 18 },
+];
 const SHARED_PROJECT_SEGMENT_BACKDROPS = [
   "/img/scenario_backdrop.png",
   "/img/concept_backdrop.png",
@@ -538,6 +553,7 @@ function LandingPage() {
     }
     return {};
   });
+  const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [heroHeadlineShown, setHeroHeadlineShown] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? HERO_HEADLINE_TEXT
@@ -547,7 +563,7 @@ function LandingPage() {
   const contactSectionRef = useRef(null);
   const projectRefs = useRef([]);
   const NAVBAR_OFFSET = 96;
-  useImagePreload("/img/profile.png");
+  useImagePreload("/img/kibok_header.webp");
 
   const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
 
@@ -652,6 +668,18 @@ function LandingPage() {
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || prefersReducedMotion) return undefined;
+    const handleMouseMove = (e) => {
+      setHeroMouse({
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [prefersReducedMotion]);
+
   return (
     <main id="top" className="mx-auto max-w-6xl bg-white px-6 pb-20 md:px-8 lg:px-10">
       <header className="sticky top-0 z-50 isolate -mx-6 flex items-center justify-between bg-transparent px-6 py-6 backdrop-blur before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-dvw before:-translate-x-1/2 before:bg-white/95 before:content-[''] md:-mx-8 md:px-8 lg:-mx-10 lg:px-10">
@@ -698,23 +726,41 @@ function LandingPage() {
             I am Vegard Szilvay, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
           </h2>
         </div>
-        <div className="relative w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px] md:justify-self-start">
-          <img
-            src={getOptimizedImageSrc("/img/profile.png")}
-            alt="Profile preview"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="block h-auto w-full object-contain object-bottom max-h-[min(68vh,34rem)]"
-          />
+        <div className="relative hidden md:block h-[440px] w-full">
+          {HERO_COLLAGE.map((img, i) => (
+            <div
+              key={i}
+              className="absolute overflow-hidden rounded-xl shadow-md transition-transform duration-100 ease-out"
+              style={{
+                top: img.top,
+                left: img.left,
+                width: img.width,
+                zIndex: HERO_COLLAGE.length - 1 - i,
+                transform: `rotate(${img.rotate}deg) translate(${heroMouse.x * img.depth}px, ${heroMouse.y * img.depth}px)`,
+              }}
+            >
+              <img src={img.src} alt="" className="w-full h-auto block" />
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="pt-3 pb-2 md:pt-4 md:pb-3">
-        <div className="grid gap-8 pt-2 md:grid-cols-3 md:gap-10">
-          {experience.map((entry, index) => (
-            <article key={entry.period} className="space-y-2 pt-3">
-              {index < 2 ? <ExperienceBriefcaseIcon /> : <ExperienceGraduationCapIcon />}
+      <section className="mt-14 border-t border-zinc-200 pt-14 md:mt-16 md:pt-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">Experience</p>
+        <div className="grid gap-8 pt-6 md:grid-cols-3 md:gap-10">
+          {experience.filter(e => e.type === "work").map((entry, index) => (
+            <article key={index} className="space-y-2 pt-3">
+              <ExperienceBriefcaseIcon />
+              <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
+              <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
+              <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="grid gap-8 pt-8 md:grid-cols-3 md:gap-10 md:pt-10">
+          {experience.filter(e => e.type === "education").map((entry, index) => (
+            <article key={index} className="space-y-2 pt-3">
+              <ExperienceGraduationCapIcon />
               <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
               <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
               <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
