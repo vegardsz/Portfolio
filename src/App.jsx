@@ -275,7 +275,7 @@ const projects = [
   }
 ];
 
-const HIDDEN_PROJECT_SLUGS = new Set([]);
+const HIDDEN_PROJECT_SLUGS = new Set(["democratizing-eye-health"]);
 const PROJECT_DISPLAY_ORDER = ["road-work-applications", "privacy-pass", "nrk-dock", "eudi-wallet"];
 const visibleProjects = projects
   .filter((project) => !HIDDEN_PROJECT_SLUGS.has(project.slug))
@@ -553,6 +553,7 @@ function LandingPage() {
     }
     return {};
   });
+  const [heroTab, setHeroTab] = useState("about");
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [heroHeadlineShown, setHeroHeadlineShown] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -635,7 +636,7 @@ function LandingPage() {
           if (intervalId !== null) window.clearInterval(intervalId);
         }
       }, 85);
-    }, 200);
+    }, 800);
 
     return () => {
       window.clearTimeout(delayId);
@@ -680,6 +681,7 @@ function LandingPage() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [prefersReducedMotion]);
 
+
   return (
     <main id="top" className="mx-auto max-w-6xl bg-white px-6 pb-20 md:px-8 lg:px-10">
       <header className="sticky top-0 z-50 isolate -mx-6 flex items-center justify-between bg-transparent px-6 py-6 backdrop-blur before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-dvw before:-translate-x-1/2 before:bg-white/95 before:content-[''] md:-mx-8 md:px-8 lg:-mx-10 lg:px-10">
@@ -707,69 +709,88 @@ function LandingPage() {
 
       <section
         id="about"
-        className="grid grid-cols-1 items-start gap-7 pt-8 pb-10 md:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] md:items-end md:gap-10 md:pt-10 md:pb-12 lg:gap-12 lg:pt-12 lg:pb-14"
+        className="pt-8 pb-6 md:pt-10 md:pb-8 lg:pt-12"
       >
-        <div className="md:pr-1 md:pt-6 lg:pt-7">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">About</p>
-          <h1
-            className="mt-4 md:mt-5 text-5xl font-normal leading-[0.95] tracking-tight text-zinc-900 md:text-6xl lg:text-[4.1rem]"
-            aria-label={HERO_HEADLINE_TEXT}
+        <h1
+          className="mt-4 md:mt-5 text-5xl font-normal leading-[0.95] tracking-tight text-zinc-900 md:text-6xl lg:text-[4.1rem]"
+          aria-label={HERO_HEADLINE_TEXT}
+        >
+          {heroHeadlineShown}
+          {heroHeadlineShown.length < HERO_HEADLINE_TEXT.length ? (
+            <span className="ml-0.5 inline-block animate-pulse font-light motion-reduce:animate-none" aria-hidden="true">
+              |
+            </span>
+          ) : null}
+        </h1>
+
+        <div className="mt-12 flex gap-1 rounded-full bg-zinc-100 p-1 w-fit">
+          <button
+            onClick={() => setHeroTab("about")}
+            className={`rounded-full px-5 py-1.5 text-sm font-medium transition-all duration-200 ${heroTab === "about" ? "bg-white shadow-sm text-zinc-900" : "text-zinc-500 hover:text-zinc-700"}`}
           >
-            {heroHeadlineShown}
-            {heroHeadlineShown.length < HERO_HEADLINE_TEXT.length ? (
-              <span className="ml-0.5 inline-block animate-pulse font-light motion-reduce:animate-none" aria-hidden="true">
-                |
-              </span>
-            ) : null}
-          </h1>
-          <h2 className="mt-5 max-w-3xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
-            I am Vegard Szilvay, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
-          </h2>
+            About
+          </button>
+          <button
+            onClick={() => setHeroTab("experience")}
+            className={`rounded-full px-5 py-1.5 text-sm font-medium transition-all duration-200 ${heroTab === "experience" ? "bg-white shadow-sm text-zinc-900" : "text-zinc-500 hover:text-zinc-700"}`}
+          >
+            Experience
+          </button>
         </div>
-        <div className="relative hidden md:block h-[440px] w-full">
-          {HERO_COLLAGE.map((img, i) => (
-            <div
-              key={i}
-              className="absolute overflow-hidden rounded-xl shadow-md transition-transform duration-100 ease-out"
-              style={{
-                top: img.top,
-                left: img.left,
-                width: img.width,
-                zIndex: HERO_COLLAGE.length - 1 - i,
-                transform: `rotate(${img.rotate}deg) translate(${heroMouse.x * img.depth}px, ${heroMouse.y * img.depth}px)`,
-              }}
-            >
-              <img src={img.src} alt="" className="w-full h-auto block" />
+
+        <div className="mt-6 overflow-hidden">
+          <div
+            className="flex w-[200%]"
+            style={{
+              transform: heroTab === "about" ? "translateX(0)" : "translateX(-50%)",
+              transition: "transform 420ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            <div className="w-1/2 flex gap-10 pr-8">
+              <div className="self-start mt-8 w-[50%] flex flex-col gap-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">About</p>
+                <h2 className="text-xl font-normal leading-tight tracking-tight text-zinc-900 md:text-2xl text-pretty">
+                  I am Vegard Szilvay, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
+                </h2>
+                <p className="text-xl font-normal leading-tight tracking-tight text-zinc-900 md:text-2xl text-pretty">
+                  I have a masters degree in Design, currently working in Accenture Song.
+                </p>
+              </div>
+              <div className="w-[38%] max-h-[420px] overflow-hidden rounded-xl ml-8">
+                <img
+                  src="/img/profilbilde 1.png"
+                  alt="Vegard Szilvay"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
             </div>
-          ))}
+            <div className="w-1/2">
+              <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+                {experience.filter(e => e.type === "work").map((entry, index) => (
+                  <article key={index} className="space-y-2 pt-3">
+                    <ExperienceBriefcaseIcon />
+                    <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
+                    <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
+                    <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="grid gap-8 pt-8 md:grid-cols-3 md:gap-10">
+                {experience.filter(e => e.type === "education").map((entry, index) => (
+                  <article key={index} className="space-y-2 pt-3">
+                    <ExperienceGraduationCapIcon />
+                    <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
+                    <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
+                    <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mt-14 border-t border-zinc-200 pt-14 md:mt-16 md:pt-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">Experience</p>
-        <div className="grid gap-8 pt-6 md:grid-cols-3 md:gap-10">
-          {experience.filter(e => e.type === "work").map((entry, index) => (
-            <article key={index} className="space-y-2 pt-3">
-              <ExperienceBriefcaseIcon />
-              <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
-              <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
-              <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
-            </article>
-          ))}
-        </div>
-        <div className="grid gap-8 pt-8 md:grid-cols-3 md:gap-10 md:pt-10">
-          {experience.filter(e => e.type === "education").map((entry, index) => (
-            <article key={index} className="space-y-2 pt-3">
-              <ExperienceGraduationCapIcon />
-              <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">{entry.period}</p>
-              <p className="text-base font-normal text-zinc-800 md:text-lg">{entry.title}</p>
-              <p className="text-base leading-relaxed text-gray-600 md:text-lg">{entry.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="works" ref={worksSectionRef} className="scroll-mt-28 mt-24 border-t border-zinc-200 pt-28 md:mt-28 md:pt-32">
+      <section id="works" ref={worksSectionRef} className="scroll-mt-20 mt-14 border-t border-zinc-200 pt-14 md:mt-16 md:pt-16">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">Work</p>
         <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
           I have done a lot of different things, like...
@@ -799,7 +820,7 @@ function LandingPage() {
               <h2 className="max-w-xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
                 {project.title}
               </h2>
-              <div className="mt-5 h-[340px] w-full md:hidden">
+              <div className="mt-5 h-[340px] w-full md:hidden overflow-hidden rounded-xl [outline:0px_solid_#3f5330] hover:[outline:3px_solid_#3f5330] transition-all duration-300">
                 <a href={`/project/${project.slug}`} className="relative block h-full w-full">
                   {project.image ? (
                     <>
@@ -808,7 +829,7 @@ function LandingPage() {
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        className={`h-full w-full rounded-xl ${
+                        className={`h-full w-full ${
                           project.slug === "eudi-wallet"
                             ? "object-cover scale-[1.08] object-[82%_center]"
                             : project.slug === "road-work-applications"
@@ -865,7 +886,7 @@ function LandingPage() {
               </a>
             </div>
             <div
-              className={`hidden h-[340px] w-full md:block md:h-[460px] lg:h-[520px] ${
+              className={`hidden h-[340px] w-full md:block md:h-[460px] lg:h-[520px] overflow-hidden rounded-xl [outline:0px_solid_#3f5330] hover:[outline:3px_solid_#3f5330] transition-all duration-300 ${
                 index % 2 === 0 ? "md:order-2" : "md:order-1"
               }`}
             >
@@ -877,7 +898,7 @@ function LandingPage() {
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
-                    className={`h-full w-full rounded-xl ${
+                    className={`h-full w-full ${
                         project.slug === "eudi-wallet"
                         ? "object-cover scale-[1.08] object-[82%_center]"
                           : project.slug === "road-work-applications"
