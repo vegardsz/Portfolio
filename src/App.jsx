@@ -165,7 +165,7 @@ const projects = [
         {
           id: "road-ux",
           label: "UX",
-          title: "UX",
+          title: "Enhancing interface",
           layoutMode: "compact",
           beforeAfterFrameScale: 505,
           beforeAfterAspectRatio: 1.9064,
@@ -178,7 +178,7 @@ const projects = [
         {
           id: "road-front-end",
           label: "Front-end",
-          title: "Front-end",
+          title: "User guide",
           image: "/img/brukerveiledningsside.png",
           backgroundImage: "/img/ux_backdrop.png",
           description:
@@ -262,7 +262,7 @@ const projects = [
         {
           id: "nrk-content",
           label: "Content",
-          title: "Content",
+          title: "Exploring modularity",
           image: "/img/nrk_2.png",
           backgroundImage: "/img/content_nrk.png",
           description:
@@ -271,7 +271,7 @@ const projects = [
         {
           id: "nrk-surface",
           label: "Surface",
-          title: "Surface",
+          title: "Interaction variations",
           image: "/img/nrk_3.png",
           backgroundImage: "/img/surface_nrk_2.png",
           description:
@@ -280,7 +280,7 @@ const projects = [
         {
           id: "nrk-use-cases",
           label: "Use cases",
-          title: "Use cases",
+          title: "Creating prototypes",
           video: "https://youtu.be/fADnQqy_gqE",
           backgroundImage: "/img/use_cases_nrk.png",
           description: "Through prototyping (both in Figma and Code), we explore various use cases of this concept."

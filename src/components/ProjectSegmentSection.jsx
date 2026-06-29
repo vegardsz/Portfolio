@@ -333,7 +333,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
         >
           {previousBackgroundSrc ? (
             <div
-              className={`absolute bg-center transition-opacity duration-[1200ms] ease-out ${
+              className={`absolute bg-center blur-sm transition-opacity duration-[1200ms] ease-out ${
                 isSurfaceNrkBackdrop(previousBackgroundSrc)
                   ? "origin-center"
                   : "inset-0 bg-cover"
@@ -342,7 +342,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
             />
           ) : null}
           <div
-            className={`absolute bg-center transition-opacity duration-[1200ms] ease-out ${
+            className={`absolute bg-center blur-sm transition-opacity duration-[1200ms] ease-out ${
               isSurfaceNrkBackdrop(currentBackgroundSrc) ? "origin-center" : "inset-0 bg-cover"
             } ${
               previousBackgroundSrc ? (isBackgroundCrossfading ? "opacity-100" : "opacity-0") : "opacity-100"
@@ -452,17 +452,20 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
               <h3 className="mt-3 text-xl font-normal tracking-tight text-white md:text-2xl">
                 {activeSegment.title}
               </h3>
-              <p className="mt-4 text-base leading-relaxed text-white/70">
+              <p className="mt-4 text-base leading-relaxed text-white">
                 {activeSegment.description}
               </p>
             </>
           ) : (
             <>
-              <h3 className={`text-2xl font-normal tracking-tight md:text-3xl ${isEyeHealthProject ? "text-zinc-900" : "text-white"}`}>
+              <p className={`text-xs font-semibold uppercase tracking-[0.14em] ${isEyeHealthProject ? "text-zinc-400" : "text-white/50"}`}>
+                {activeSegment.label}
+              </p>
+              <h3 className={`mt-3 text-2xl font-normal tracking-tight md:text-3xl ${isEyeHealthProject ? "text-zinc-900" : "text-white"}`}>
                 {activeSegment.title}
               </h3>
               <p
-                className={`text-base leading-relaxed md:text-lg ${
+                className={`text-base leading-relaxed ${
                   isEyeHealthProject ? "text-zinc-700" : "text-white"
                 } ${
                   isNrkSurfaceSegment || isNrkUseCasesSegment ? "mt-3 md:mt-3.5" : "mt-4"
