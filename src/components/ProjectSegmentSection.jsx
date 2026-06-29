@@ -96,6 +96,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
   const isNrkTwoColumnLayout = isNrkProject && !isNrkSurfaceSegment && !isNrkUseCasesSegment;
   const isNrkImageSegment = isNrkProject && (activeSegment.id === "nrk-content" || activeSegment.id === "nrk-surface");
   const hasCarousel = Array.isArray(activeSegment.images) && activeSegment.images.length > 0;
+  const hasGallery = Array.isArray(activeSegment.galleryItems) && activeSegment.galleryItems.length > 0;
   const activeImageSrc = hasCarousel ? activeSegment.images[carouselIndex] : activeSegment.image;
   const activeVideoSrc = activeSegment.video;
   const activeVideoEmbedSrc = getYouTubeEmbedSrc(activeVideoSrc);
@@ -192,6 +193,12 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
     setViewerImage({ src: activeImageSrc, alt: activeImageAlt, id: activeSegment.id });
   };
 
+  const openGalleryViewer = () => {
+    const item = activeSegment.galleryItems?.[carouselIndex];
+    if (!item?.image) return;
+    setViewerImage({ src: item.image, alt: item.label || item.caption || activeSegment.title, id: activeSegment.id });
+  };
+
   const openBeforeAfterViewer = () => {
     if (!activeSegment.afterImage) return;
     setBeforeAfterViewerRatio(beforeAfterRatio);
@@ -260,7 +267,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
     projectSlug === "road-work-applications";
   const sectionRef = useRef(null);
   const controlsRef = useRef(null);
-  const showInlineFrameControls = !activeVideoSrc && (hasCarousel || (!isSystem && !hasBeforeAfterSlider && !isRoadFrontEndSegment));
+  const showInlineFrameControls = !activeVideoSrc && !hasGallery && (hasCarousel || (!isSystem && !hasBeforeAfterSlider && !isRoadFrontEndSegment));
   const isCompactSegment = activeSegment.layoutMode === "compact";
   const beforeAfterFrameScale =
     typeof activeSegment.beforeAfterFrameScale === "number" ? activeSegment.beforeAfterFrameScale : 400;
@@ -394,13 +401,15 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
       >
       <div
         key={activeId}
-        className={`grid content-start grid-cols-1 items-start ${
+        className={`grid content-start grid-cols-1 ${hasGallery ? "items-stretch" : "items-start"} ${
           isNrkProject
             ? isNrkSurfaceSegment
               ? "mt-12 gap-x-0 gap-y-2 md:mt-12 md:gap-y-3"
               : isNrkUseCasesSegment
                 ? "mt-12 gap-x-0 gap-y-5 md:mt-12 md:gap-y-6"
                 : "mt-12 gap-6 md:mt-12 md:gap-8"
+            : hasGallery
+            ? "mt-12 gap-8 md:mt-14 md:gap-10"
             : isArtifact
             ? "mt-12 gap-3 md:mt-14 md:gap-4"
             : isRoadFrontEndSegment
@@ -411,7 +420,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
               ? "mt-14 gap-6 md:mt-14 md:gap-8"
               : "mt-20 gap-8 md:gap-12"
         } ${
-          isNrkSurfaceSegment || isNrkUseCasesSegment || isVerticalWide || isCompactSegment || isEyeStackedSegment
+          hasGallery
+            ? "md:grid-cols-[minmax(0,3fr)_minmax(0,7fr)]"
+            : isNrkSurfaceSegment || isNrkUseCasesSegment || isVerticalWide || isCompactSegment || isEyeStackedSegment
             ? ""
             : isEyeMindsetsSegment
               ? "md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]"
@@ -422,7 +433,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
       >
         <div
           className={
-            isNrkProject
+            hasGallery
+              ? "flex flex-col"
+              : isNrkProject
               ? isNrkSurfaceSegment
                 ? "w-full md:max-w-[38rem] lg:max-w-[42rem]"
                 : isNrkUseCasesSegment
@@ -433,20 +446,34 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
               : ""
           }
         >
-          <h3 className={`text-2xl font-normal tracking-tight md:text-3xl ${isEyeHealthProject ? "text-zinc-900" : "text-white"}`}>
-            {activeSegment.title}
-          </h3>
-          <p
-            className={`text-base leading-relaxed md:text-lg ${
-              isEyeHealthProject ? "text-zinc-700" : "text-white"
-            } ${
-              isNrkSurfaceSegment || isNrkUseCasesSegment ? "mt-3 md:mt-3.5" : "mt-4"
-            }`}
-          >
-            {activeSegment.description}
-          </p>
+          {hasGallery ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/50">{activeSegment.label}</p>
+              <h3 className="mt-3 text-xl font-normal tracking-tight text-white md:text-2xl">
+                {activeSegment.title}
+              </h3>
+              <p className="mt-4 text-base leading-relaxed text-white/70">
+                {activeSegment.description}
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className={`text-2xl font-normal tracking-tight md:text-3xl ${isEyeHealthProject ? "text-zinc-900" : "text-white"}`}>
+                {activeSegment.title}
+              </h3>
+              <p
+                className={`text-base leading-relaxed md:text-lg ${
+                  isEyeHealthProject ? "text-zinc-700" : "text-white"
+                } ${
+                  isNrkSurfaceSegment || isNrkUseCasesSegment ? "mt-3 md:mt-3.5" : "mt-4"
+                }`}
+              >
+                {activeSegment.description}
+              </p>
+            </>
+          )}
         </div>
-        {activeVideoSrc || activeImageSrc || hasBeforeAfterSlider ? (
+        {activeVideoSrc || activeImageSrc || hasBeforeAfterSlider || hasGallery ? (
           <div
             className={`self-start ${isNrkImageSegment ? "w-full min-w-0" : ""} ${
               isNrkSurfaceSegment || isNrkContentSegment || isNrkUseCasesSegment ? "overflow-visible" : ""
@@ -500,7 +527,73 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
               ) : null}
             </div>
             ) : null}
-            {hasBeforeAfterSlider ? (
+            {hasGallery ? (
+              <div className={`overflow-hidden ${activeSegment.galleryContainerClass ?? "w-full"}`}>
+                <div className="w-full overflow-hidden rounded-xl bg-white/20">
+                  <div
+                    className="flex w-full transition-transform duration-300 ease-out"
+                    style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
+                  >
+                    {activeSegment.galleryItems.map((item, galleryIndex) => (
+                      <div key={galleryIndex} className={`relative flex w-full shrink-0 items-center justify-center overflow-hidden rounded-xl px-5 pb-5 pt-12 ${activeSegment.galleryContainerHeight ?? "h-[400px]"}`}>
+                        {item.label ? (
+                          <span className="absolute left-3 top-3 z-10 rounded-md bg-zinc-700/90 px-2.5 py-1 text-xs font-medium text-white">
+                            {item.label}
+                          </span>
+                        ) : null}
+                        <button
+                          type="button"
+                          aria-label="View fullscreen"
+                          onClick={openGalleryViewer}
+                          className="absolute right-3 top-3 z-10 inline-flex h-7 w-7 items-center justify-center rounded-md border border-white/30 bg-zinc-700/70 text-white opacity-75 backdrop-blur-sm transition-opacity duration-200 hover:opacity-100"
+                        >
+                          <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                            <path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+                        <img
+                          src={getOptimizedImageSrc(item.image)}
+                          alt={item.caption}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-contain object-center"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {activeSegment.galleryItems.length > 1 ? <div className="mt-4 flex items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    aria-label="Previous image"
+                    onClick={() =>
+                      setCarouselIndex((prev) =>
+                        prev === 0 ? activeSegment.galleryItems.length - 1 : prev - 1
+                      )
+                    }
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/30 text-white opacity-75 transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  >
+                    <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                      <path d="M10.5 3 5.5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next image"
+                    onClick={() =>
+                      setCarouselIndex((prev) =>
+                        prev === activeSegment.galleryItems.length - 1 ? 0 : prev + 1
+                      )
+                    }
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/30 text-white opacity-75 transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  >
+                    <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                      <path d="M5.5 3 10.5 8l-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div> : null}
+              </div>
+            ) : hasBeforeAfterSlider ? (
               <>
               <div
                 ref={beforeAfterFrameRef}

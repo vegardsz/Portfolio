@@ -23,7 +23,7 @@ const projects = [
     slug: "eudi-wallet",
     title: "Envisioning a sovereign European digital infrastructure",
     intro:
-      "My master's thesis from AHO, developed with Hans Jacob Wernersen, explores how a Big Tech shaped digital landscape affects wellbeing and control. Through three concepts and tangible artifacts, we present a realistic EU-based alternative designed to put people first.",
+      "My master's thesis from AHO, developed with Hans Jacob Wernersen, explores how a Big Tech shaped digital landscape affects wellbeing and control. Through three concepts and nine tangible artifacts, we present a realistic EU-based alternative designed to put people first.",
     landingIntro:
       "My master's thesis from AHO explores how Big Tech shapes wellbeing and control, and proposes a more human, EU-based digital alternative through speculative concepts and artifacts.",
     services: "Strategic Design",
@@ -31,10 +31,11 @@ const projects = [
     client: "Master Thesis (AHO)",
     format: "portrait",
     image: "/img/sovereign-img.png",
+    landingImage: "/img/rewire_hero_website.png",
     tags: ["Student project", "Public sector"],
     contributions: ["Speculative Design", "Systems Thinking", "Concept Development", "Artifact Prototyping"],
     context:
-      "The project was sparked by Norway’s 2024 digitalization strategy, aiming to become the “most digitalized country in the world” — prompting us to question why not the “best.” As people increasingly try to manage hyperconnectivity on their own, we asked whether digital wellbeing should really be an individual responsibility, or a shared one across platforms and providers. The thesis therefore investigates how a shift in power dynamics could reshape our relationship with digital services.",
+      "The project was sparked by Norway’s 2024 digitalization strategy, aiming to become the \"most digitalized country in the world\" — prompting us to question why not the \"best.\" As people increasingly try to manage hyperconnectivity on their own, we asked whether digital wellbeing should really be an individual responsibility, or a shared one across platforms and providers. The thesis therefore investigates how a shift in power dynamics could reshape our relationship with digital services.",
     deliveryText:
       "To explore this, we developed nine tangible artifacts within a speculative, yet realistic, EU-based scenario where innovation is more democratised and bounded. These artifacts act as representations of an alternative digital ecosystem, designed to put people’s wellbeing and values first, and serve as tools to provoke reflection and discussion. Below are some examples of how we move between infrastructural speculation and tangible touchpoints. The rest can be read in our report. ",
     rapportUrl: "https://nva.sikt.no/registration/01992916783f-42b00332-aa16-4940-b909-b4490a5166e5",
@@ -47,28 +48,40 @@ const projects = [
           id: "scenario",
           label: "Scenario",
           title: "Shaped a wellbeing centered internet",
-          image: "/img/scenario.svg",
           backgroundImage: "/img/scenario_backdrop.png",
           description:
-            "Using EU as a basis for speculation, we use real signal and trends to shape a wellbeing-centered digital infrastructure. Here, the goal is to ensure transparency and access through all levels, allowing users to reach levels beyond just themselves and thereby offer greater control."
+            "Using EU as a basis for speculation, we use real signal and trends to shape a wellbeing-centered digital infrastructure. Here, the goal is to ensure transparency and access through all levels, allowing users to reach levels beyond just themselves and thereby offer greater control.",
+          galleryContainerHeight: "h-[360px]",
+          galleryContainerClass: "max-w-[580px] ml-auto",
+          galleryItems: [
+            { image: "/img/scenario.svg", caption: "" },
+          ]
         },
         {
           id: "concept",
           label: "Concept",
           title: "Made the scenario tangible",
-          image: "/img/concept.svg?v=2",
           backgroundImage: "/img/concept_backdrop.png",
           description:
-            "To make this scenario tangible, we make low-fidelity concepts. Here we envision what services that could arise, given that the infrastructure is implemented and enforced by the EU. This allows us to get closer to the felt experience of our speculations. For instance, what happens if all citizens get their own “digital identity hub”, that gives them full overview of their digital footprint and personal data?"
+            "To make this scenario tangible, we make low-fidelity concepts. Here we envision what services that could arise, given that the infrastructure is implemented and enforced by the EU. This allows us to get closer to the felt experience of our speculations.",
+          galleryItems: [
+            { image: "/img/concept.svg?v=2", label: "Identity Hub", caption: "What happens if all citizens get their own \"digital identity hub\", that gives them full overview of their digital footprint and personal data?" },
+            { image: "/img/service_builder_horizontal.png", label: "Service Builder", caption: "Could EU provide digital building blocks, allowing public and private actors to create safe, robust and democratic services?" },
+            { image: "/img/policy_hub_horizontal.png", label: "Policy Hub", caption: "How can ordinary citizens be allowed to have a greater say on digital policies that affect their daily lives?" },
+          ]
         },
         {
           id: "artifact",
           label: "Artifact",
-          title: "What this felt like",
-          image: "/img/artifact.png?v=2",
+          title: "What would this feel like?",
           backgroundImage: "/img/artifact_backdrop.png",
           description:
-            "If this concept existed, what would everyday digital interactions feel like? Could we for instance have direct control of our own algorithms?"
+            "If concepts like these were realized, how would it impact existing digital services, and what other solutions could emerge?",
+          galleryItems: [
+            { image: "/img/artifact.png?v=2", label: "Could we have greater control of personal algorithms?", caption: "Could we for instance have direct control of our own algorithms?" },
+            { image: "/img/artifact2.png", label: "Could we modify services to our need?", caption: "Could we for instance have direct control of our own algorithms?" },
+            { image: "/img/artifact3.png", label: "Can we change our digital perception?", caption: "Could we for instance have direct control of our own algorithms?" },
+          ]
         }
       ]
     }
@@ -102,7 +115,9 @@ const projects = [
           id: "system",
           label: "System",
           title: "System alignment across municipal workflows",
-          image: "/img/system_backdrop.png",
+          galleryItems: [
+            { image: "/img/system_backdrop.png", caption: "" }
+          ],
           description:
             "Mapped process dependencies and operational constraints across departments to ensure the service concept could work in real municipal conditions."
         },
@@ -110,13 +125,13 @@ const projects = [
           id: "prototype",
           label: "Prototype",
           title: "Prototype flow for citizen applications",
-          images: [
-            "/img/Logg inn.png",
-            "/img/Sammenkomst.png",
-            "/img/Logg inn-1.png",
-            "/img/Velg dato.png",
-            "/img/Velg utstyr.png",
-            "/img/Bekreft gate.png"
+          galleryItems: [
+            { image: "/img/Logg inn.png", caption: "" },
+            { image: "/img/Sammenkomst.png", caption: "" },
+            { image: "/img/Logg inn-1.png", caption: "" },
+            { image: "/img/Velg dato.png", caption: "" },
+            { image: "/img/velg-utstyr.png", caption: "" },
+            { image: "/img/Bekreft gate.png", caption: "" }
           ],
           description:
             "An interactive prototype translated service principles into a practical application journey, making it easier to validate usability and processing readiness with stakeholders."
@@ -746,8 +761,8 @@ function LandingPage() {
               transition: "transform 420ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
-            <div className="w-1/2 flex gap-10 pr-8">
-              <div className="self-start mt-8 w-[50%] flex flex-col gap-5">
+            <div className="w-1/2 flex flex-col md:flex-row gap-10 pr-8">
+              <div className="self-start mt-8 w-full md:w-[50%] flex flex-col gap-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">About</p>
                 <h2 className="text-xl font-normal leading-tight tracking-tight text-zinc-900 md:text-2xl text-pretty">
                   I am Vegard Szilvay, a UX/Service designer based in Oslo. I design simple, human-centered digital services that make complex systems easier to navigate.
@@ -756,7 +771,7 @@ function LandingPage() {
                   I have a masters degree in Design, currently working in Accenture Song.
                 </p>
               </div>
-              <div className="w-[38%] max-h-[420px] overflow-hidden rounded-xl ml-8">
+              <div className="w-full md:w-[38%] max-h-[420px] overflow-hidden rounded-xl md:ml-8">
                 <img
                   src="/img/profilbilde 1.png"
                   alt="Vegard Szilvay"
@@ -820,17 +835,17 @@ function LandingPage() {
               <h2 className="max-w-xl text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">
                 {project.title}
               </h2>
-              <div className="mt-5 h-[340px] w-full md:hidden overflow-hidden rounded-xl [outline:0px_solid_#3f5330] hover:[outline:3px_solid_#3f5330] transition-all duration-300">
+              <div className="group mt-5 h-[340px] w-full md:hidden overflow-hidden rounded-xl">
                 <a href={`/project/${project.slug}`} className="relative block h-full w-full">
                   {project.image ? (
                     <>
                       <img
-                        src={getOptimizedImageSrc(project.image)}
+                        src={getOptimizedImageSrc(project.landingImage ?? project.image)}
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
                         className={`h-full w-full ${
-                          project.slug === "eudi-wallet"
+                          !project.landingImage && project.slug === "eudi-wallet"
                             ? "object-cover scale-[1.08] object-[82%_center]"
                             : project.slug === "road-work-applications"
                               ? "object-cover scale-[1.08] object-[92%_center]"
@@ -845,13 +860,18 @@ function LandingPage() {
                           alt="AHO Awards stamp"
                           loading="lazy"
                           decoding="async"
-                          className="pointer-events-none absolute bottom-0 left-0 z-10 h-auto w-[126px] origin-bottom-left scale-110 drop-shadow-[0_8px_20px_rgba(0,0,0,0.28)]"
+                          className="pointer-events-none absolute bottom-0 right-0 z-10 h-auto w-[100px] origin-bottom-right drop-shadow-[0_8px_20px_rgba(0,0,0,0.28)]"
                         />
                       ) : null}
                     </>
                   ) : (
                     <div className="placeholder-check h-full w-full rounded-xl" />
                   )}
+                  <div className="absolute bottom-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-lg bg-black opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                      <path d="M3.5 12.5 12.5 3.5M5 3.5h7.5v7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
                 </a>
               </div>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
@@ -886,7 +906,7 @@ function LandingPage() {
               </a>
             </div>
             <div
-              className={`hidden h-[340px] w-full md:block md:h-[460px] lg:h-[520px] overflow-hidden rounded-xl [outline:0px_solid_#3f5330] hover:[outline:3px_solid_#3f5330] transition-all duration-300 ${
+              className={`group hidden h-[340px] w-full md:block md:h-[460px] lg:h-[520px] overflow-hidden rounded-xl ${
                 index % 2 === 0 ? "md:order-2" : "md:order-1"
               }`}
             >
@@ -894,12 +914,12 @@ function LandingPage() {
                 {project.image ? (
                   <>
                     <img
-                      src={getOptimizedImageSrc(project.image)}
+                      src={getOptimizedImageSrc(project.landingImage ?? project.image)}
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
                     className={`h-full w-full ${
-                        project.slug === "eudi-wallet"
+                        !project.landingImage && project.slug === "eudi-wallet"
                         ? "object-cover scale-[1.08] object-[82%_center]"
                           : project.slug === "road-work-applications"
                           ? "object-cover scale-[1.08] object-[92%_center]"
@@ -914,13 +934,18 @@ function LandingPage() {
                         alt="AHO Awards stamp"
                         loading="lazy"
                         decoding="async"
-                        className="pointer-events-none absolute bottom-0 left-0 z-10 h-auto w-[126px] origin-bottom-left scale-110 drop-shadow-[0_8px_20px_rgba(0,0,0,0.28)] md:w-[144px]"
+                        className="pointer-events-none absolute bottom-0 right-0 z-10 h-auto w-[100px] origin-bottom-right drop-shadow-[0_8px_20px_rgba(0,0,0,0.28)] md:w-[120px]"
                       />
                     ) : null}
                   </>
                 ) : (
                   <div className="placeholder-check h-full w-full rounded-xl" />
                 )}
+                <div className="absolute bottom-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-lg bg-black opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <path d="M3.5 12.5 12.5 3.5M5 3.5h7.5v7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
               </a>
             </div>
           </article>
@@ -1126,7 +1151,7 @@ function ProjectPage({ project }) {
           {isRewireProject ? (
             <div className="w-full overflow-hidden rounded-xl">
               <img
-                src={getOptimizedImageSrc("/img/rewire_header.png")}
+                src={getOptimizedImageSrc("/img/rewire_project_header.png")}
                 alt={project.title}
                 loading="eager"
                 fetchPriority="high"
