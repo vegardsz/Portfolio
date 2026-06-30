@@ -532,7 +532,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
             ) : null}
             {hasGallery ? (
               <div className={`overflow-hidden ${activeSegment.galleryContainerClass ?? "w-full"}`}>
-                <div className="w-full overflow-hidden rounded-xl bg-white/20">
+                <div className="w-full overflow-hidden rounded-xl bg-white/10 backdrop-blur-sm">
                   <div
                     className="flex w-full transition-transform duration-300 ease-out"
                     style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
@@ -540,7 +540,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                     {activeSegment.galleryItems.map((item, galleryIndex) => (
                       <div key={galleryIndex} className={`relative flex w-full shrink-0 items-center justify-center overflow-hidden rounded-xl px-5 pb-5 pt-12 ${activeSegment.galleryContainerHeight ?? "h-[400px]"}`}>
                         {item.label ? (
-                          <span className="absolute left-3 top-3 z-10 rounded-md bg-zinc-700/90 px-2.5 py-1 text-xs font-medium text-white">
+                          <span className="absolute left-3 top-3 z-10 rounded-full bg-white/20 px-2.5 py-1 text-xs font-medium text-white/80 shadow-sm backdrop-blur-sm">
                             {item.label}
                           </span>
                         ) : null}
