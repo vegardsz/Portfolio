@@ -349,7 +349,7 @@ const HONORABLE_MENTIONS = [
     title: "VG Sphere",
     description:
       "Concept and design explorations around immersive editorial experiences and how spatial interfaces can support storytelling.",
-    video: "/img/vg_sphere_video.mov",
+    video: "/img/vg_sphere_video.mp4",
     videoNoFrame: true,
     client: "VG",
     designType: "UX/UI Design"
@@ -366,7 +366,7 @@ const HONORABLE_MENTIONS = [
     title: "Ship Navigation Overlays",
     description:
       "Interface studies for layered navigation overlays that improve situational awareness while preserving clarity in maritime contexts.",
-    video: "/img/rescue_ui.mov",
+    video: "/img/rescue_ui.mp4",
     videoLandscape: true,
     client: "Ocean Industries Concept Lab",
     designType: "UX/UI Design"
