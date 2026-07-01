@@ -966,27 +966,19 @@ function LandingPage() {
             <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
               A lightweight collection of other projects and explorations that are worth highlighting.
             </p>
-            <div className="mt-6 h-[240px] w-full md:mt-8 md:h-[300px] lg:h-[340px]">
-              <a href={HONORABLE_MENTIONS_PATH} className="relative block h-full w-full">
-                <div className="grid h-full w-full grid-cols-2 gap-2 rounded-xl md:gap-3">
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 p-2">
-                    <img
-                      src={getOptimizedImageSrc("/img/vg.png")}
-                      alt="VG preview"
-                      loading="lazy"
-                      decoding="async"
-                      className="max-h-full max-w-full object-contain object-center"
-                    />
-                  </div>
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 p-2">
-                    <img
-                      src={getOptimizedImageSrc("/img/navigation.png")}
-                      alt="Navigation preview"
-                      loading="lazy"
-                      decoding="async"
-                      className="max-h-full max-w-full object-contain object-center"
-                    />
-                  </div>
+            <div className="mt-6 w-full md:mt-8">
+              <a href={HONORABLE_MENTIONS_PATH} className="group relative block w-full overflow-hidden rounded-xl ring-1 ring-zinc-200">
+                <img
+                  src="/img/honorable_mentions_header.png"
+                  alt="Honorable mentions"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full object-cover"
+                />
+                <div className="absolute bottom-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-lg bg-black opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <path d="M3.5 12.5 12.5 3.5M5 3.5h7.5v7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </div>
               </a>
             </div>
