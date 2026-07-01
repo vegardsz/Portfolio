@@ -764,7 +764,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                 </div>
               </div>
             ) : isRoadFrontEndSegment ? (
-              <div className="h-[620px] w-full overflow-y-auto overflow-x-hidden rounded-xl bg-white/95 ring-1 ring-black/5 md:h-[690px]">
+              <div className="h-[620px] w-full overflow-y-scroll overflow-x-hidden rounded-xl bg-white/95 ring-1 ring-black/5 md:h-[690px]">
                 <img
                   src={getOptimizedImageSrc(activeImageSrc)}
                   alt={activeImageAlt}

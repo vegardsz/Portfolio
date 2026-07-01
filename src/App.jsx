@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import RefreshIcon from "./icons/RefreshIcon";
 
 function usePrefersReducedMotion() {
   const getSnapshot = () =>
@@ -348,7 +349,8 @@ const HONORABLE_MENTIONS = [
     title: "VG Sphere",
     description:
       "Concept and design explorations around immersive editorial experiences and how spatial interfaces can support storytelling.",
-    image: "/img/vg.png",
+    video: "/img/vg_sphere_video.mov",
+    videoNoFrame: true,
     client: "VG",
     designType: "UX/UI Design"
   },
@@ -356,7 +358,7 @@ const HONORABLE_MENTIONS = [
     title: "YR Travel",
     description:
       "A weather-focused travel concept exploring how planning, route context, and forecast insights can be presented in one coherent flow.",
-    image: "/img/yr.png",
+    video: "/img/yr_video.mp4",
     client: "YR",
     designType: "UX/UI Design"
   },
@@ -364,7 +366,8 @@ const HONORABLE_MENTIONS = [
     title: "Ship Navigation Overlays",
     description:
       "Interface studies for layered navigation overlays that improve situational awareness while preserving clarity in maritime contexts.",
-    image: "/img/navigation.png",
+    video: "/img/rescue_ui.mov",
+    videoLandscape: true,
     client: "Ocean Industries Concept Lab",
     designType: "UX/UI Design"
   }
@@ -1284,6 +1287,97 @@ function ProjectPage({ project }) {
   );
 }
 
+function HonorableMentionVideoCard({ src }) {
+  const videoRef = useRef(null);
+  return (
+    <div className="relative inline-flex">
+      <div className="rounded-xl bg-zinc-100 p-2 md:p-3 max-w-[230px] md:max-w-[276px]">
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="block w-full h-auto rounded-lg"
+        />
+      </div>
+      <button
+        type="button"
+        aria-label="Restart video"
+        onClick={() => {
+          if (!videoRef.current) return;
+          videoRef.current.currentTime = 0;
+          videoRef.current.play();
+        }}
+        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
+      >
+        <RefreshIcon className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+function HonorableMentionNoFrameVideoCard({ src }) {
+  const videoRef = useRef(null);
+  return (
+    <div className="relative inline-flex">
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="block w-full max-w-[220px] md:max-w-[260px] h-auto rounded-xl outline-none border-0"
+      />
+      <button
+        type="button"
+        aria-label="Restart video"
+        onClick={() => {
+          if (!videoRef.current) return;
+          videoRef.current.currentTime = 0;
+          videoRef.current.play();
+        }}
+        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
+      >
+        <RefreshIcon className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+function HonorableMentionLandscapeVideoCard({ src }) {
+  const videoRef = useRef(null);
+  return (
+    <div className="relative w-full">
+      <div className="rounded-xl bg-zinc-100 p-2 md:p-3 w-full">
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="block w-full h-auto rounded-lg aspect-[2876/2044]"
+        />
+      </div>
+      <button
+        type="button"
+        aria-label="Restart video"
+        onClick={() => {
+          if (!videoRef.current) return;
+          videoRef.current.currentTime = 0;
+          videoRef.current.play();
+        }}
+        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
+      >
+        <RefreshIcon className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
 function HonorableMentionsPage() {
   return (
     <main className="mx-auto max-w-6xl bg-white px-6 pb-20 md:px-8 lg:px-10">
@@ -1349,15 +1443,29 @@ function HonorableMentionsPage() {
               </div>
             </div>
             <div className={index % 2 === 0 ? "order-2" : "order-1"}>
-              <div className="h-[300px] w-full overflow-hidden rounded-xl bg-zinc-100 p-2 md:h-[360px] md:p-3 lg:h-[400px]">
-                <img
-                  src={getOptimizedImageSrc(item.image)}
-                  alt={item.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-full w-full object-contain object-center"
-                />
-              </div>
+              {item.video && item.videoNoFrame ? (
+                <div className="flex h-full items-center justify-center pr-9">
+                  <HonorableMentionNoFrameVideoCard src={item.video} />
+                </div>
+              ) : item.video && item.videoLandscape ? (
+                <div className="flex h-full items-center justify-center pr-9">
+                  <HonorableMentionLandscapeVideoCard src={item.video} />
+                </div>
+              ) : item.video ? (
+                <div className="flex h-full items-center justify-center">
+                  <HonorableMentionVideoCard src={item.video} />
+                </div>
+              ) : (
+                <div className="w-full overflow-hidden rounded-xl bg-zinc-100 p-2 md:p-3 h-[300px] md:h-[360px] lg:h-[400px]">
+                  <img
+                    src={getOptimizedImageSrc(item.image)}
+                    alt={item.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-full w-full object-contain object-center"
+                  />
+                </div>
+              )}
             </div>
           </article>
         ))}
