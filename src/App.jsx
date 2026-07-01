@@ -1,5 +1,7 @@
 import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import RefreshIcon from "./icons/RefreshIcon";
+import FullscreenIcon from "./icons/FullscreenIcon";
 
 function usePrefersReducedMotion() {
   const getSnapshot = () =>
@@ -349,6 +351,8 @@ const HONORABLE_MENTIONS = [
     title: "VG Sphere",
     description:
       "Concept and design explorations around immersive editorial experiences and how spatial interfaces can support storytelling.",
+    description2:
+      "By taking advantage of the vast library of news articles that are produced over time, the concept explores how to present a holistic overview of a case, providing both present and historic context.",
     video: "/img/vg_sphere_video.mp4",
     videoNoFrame: true,
     client: "VG",
@@ -365,7 +369,7 @@ const HONORABLE_MENTIONS = [
   {
     title: "Ship Navigation Overlays",
     description:
-      "Interface studies for layered navigation overlays that improve situational awareness while preserving clarity in maritime contexts.",
+      "Exploring navigation overlays for ships involved in search and rescue mission. The concept, created for and with Ocean Industries Concept Labs design system, aims to provide vessels with an interactive interface to provide important information when doing a search.",
     video: "/img/rescue_ui.mp4",
     videoLandscape: true,
     client: "Ocean Industries Concept Lab",
@@ -1287,11 +1291,27 @@ function ProjectPage({ project }) {
   );
 }
 
-function HonorableMentionVideoCard({ src }) {
+const VIDEO_BUTTON_CLASS = "flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white";
+
+function VideoOverlay({ src, onClose }) {
   const videoRef = useRef(null);
-  return (
-    <div className="relative inline-flex">
-      <div className="rounded-xl bg-zinc-100 p-2 md:p-3 max-w-[230px] md:max-w-[276px]">
+
+  useEffect(() => {
+    const handleEscape = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handleEscape);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/75 backdrop-blur-sm p-10"
+      onClick={onClose}
+    >
+      <div className="relative" onClick={(e) => e.stopPropagation()}>
         <video
           ref={videoRef}
           src={src}
@@ -1299,82 +1319,84 @@ function HonorableMentionVideoCard({ src }) {
           muted
           loop
           playsInline
-          className="block w-full h-auto rounded-lg"
+          className="block h-auto w-auto max-h-[88vh] max-w-[90vw] rounded-xl outline-none"
         />
+        <button
+          type="button"
+          aria-label="Restart video"
+          onClick={() => {
+            if (!videoRef.current) return;
+            videoRef.current.currentTime = 0;
+            videoRef.current.play();
+          }}
+          className={`absolute -right-9 bottom-0 ${VIDEO_BUTTON_CLASS}`}
+        >
+          <RefreshIcon className="h-4 w-4" />
+        </button>
       </div>
-      <button
-        type="button"
-        aria-label="Restart video"
-        onClick={() => {
-          if (!videoRef.current) return;
-          videoRef.current.currentTime = 0;
-          videoRef.current.play();
-        }}
-        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
-      >
-        <RefreshIcon className="h-4 w-4" />
-      </button>
-    </div>
+    </div>,
+    document.body
+  );
+}
+
+function HonorableMentionVideoCard({ src }) {
+  const videoRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  return (
+    <>
+      <div className="relative inline-flex">
+        <div className="rounded-xl bg-zinc-100 p-2 md:p-3 max-w-[230px] md:max-w-[276px]">
+          <video ref={videoRef} src={src} autoPlay muted loop playsInline className="block w-full h-auto rounded-lg" />
+        </div>
+        <button type="button" aria-label="View fullscreen" onClick={() => setIsFullscreen(true)} className={`absolute -right-9 bottom-10 ${VIDEO_BUTTON_CLASS}`}>
+          <FullscreenIcon className="h-4 w-4" />
+        </button>
+        <button type="button" aria-label="Restart video" onClick={() => { if (!videoRef.current) return; videoRef.current.currentTime = 0; videoRef.current.play(); }} className={`absolute -right-9 bottom-0 ${VIDEO_BUTTON_CLASS}`}>
+          <RefreshIcon className="h-4 w-4" />
+        </button>
+      </div>
+      {isFullscreen && <VideoOverlay src={src} onClose={() => setIsFullscreen(false)} />}
+    </>
   );
 }
 
 function HonorableMentionNoFrameVideoCard({ src }) {
   const videoRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   return (
-    <div className="relative inline-flex">
-      <video
-        ref={videoRef}
-        src={src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="block w-full max-w-[220px] md:max-w-[260px] h-auto rounded-xl outline-none border-0"
-      />
-      <button
-        type="button"
-        aria-label="Restart video"
-        onClick={() => {
-          if (!videoRef.current) return;
-          videoRef.current.currentTime = 0;
-          videoRef.current.play();
-        }}
-        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
-      >
-        <RefreshIcon className="h-4 w-4" />
-      </button>
-    </div>
+    <>
+      <div className="relative inline-flex">
+        <video ref={videoRef} src={src} autoPlay muted loop playsInline className="block w-full max-w-[220px] md:max-w-[260px] h-auto rounded-xl outline-none border-0" />
+        <button type="button" aria-label="View fullscreen" onClick={() => setIsFullscreen(true)} className={`absolute -right-9 bottom-10 ${VIDEO_BUTTON_CLASS}`}>
+          <FullscreenIcon className="h-4 w-4" />
+        </button>
+        <button type="button" aria-label="Restart video" onClick={() => { if (!videoRef.current) return; videoRef.current.currentTime = 0; videoRef.current.play(); }} className={`absolute -right-9 bottom-0 ${VIDEO_BUTTON_CLASS}`}>
+          <RefreshIcon className="h-4 w-4" />
+        </button>
+      </div>
+      {isFullscreen && <VideoOverlay src={src} onClose={() => setIsFullscreen(false)} />}
+    </>
   );
 }
 
 function HonorableMentionLandscapeVideoCard({ src }) {
   const videoRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   return (
+    <>
     <div className="relative w-full">
       <div className="rounded-xl bg-zinc-100 p-2 md:p-3 w-full">
-        <video
-          ref={videoRef}
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="block w-full h-auto rounded-lg aspect-[2876/2044]"
-        />
+        <video ref={videoRef} src={src} autoPlay muted loop playsInline className="block w-full h-auto rounded-lg aspect-[2876/2044]" />
       </div>
-      <button
-        type="button"
-        aria-label="Restart video"
-        onClick={() => {
-          if (!videoRef.current) return;
-          videoRef.current.currentTime = 0;
-          videoRef.current.play();
-        }}
-        className="absolute -right-9 bottom-0 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white"
-      >
+      <button type="button" aria-label="View fullscreen" onClick={() => setIsFullscreen(true)} className={`absolute -right-9 bottom-10 ${VIDEO_BUTTON_CLASS}`}>
+        <FullscreenIcon className="h-4 w-4" />
+      </button>
+      <button type="button" aria-label="Restart video" onClick={() => { if (!videoRef.current) return; videoRef.current.currentTime = 0; videoRef.current.play(); }} className={`absolute -right-9 bottom-0 ${VIDEO_BUTTON_CLASS}`}>
         <RefreshIcon className="h-4 w-4" />
       </button>
     </div>
+    {isFullscreen && <VideoOverlay src={src} onClose={() => setIsFullscreen(false)} />}
+    </>
   );
 }
 
@@ -1433,6 +1455,9 @@ function HonorableMentionsPage() {
               <p className="text-xs font-medium uppercase tracking-[0.1em] text-zinc-500">Project snippet</p>
               <h2 className="mt-3 text-3xl font-normal leading-tight tracking-tight text-zinc-900 md:text-4xl">{item.title}</h2>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">{item.description}</p>
+              {item.description2 ? (
+                <p className="mt-3 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">{item.description2}</p>
+              ) : null}
               <div className="mt-5 flex flex-wrap gap-2">
                 <span className="rounded-sm bg-zinc-100 px-2 py-1 text-[12px] font-medium uppercase tracking-[0.08em] text-zinc-500">
                   {item.designType}
