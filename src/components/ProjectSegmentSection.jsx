@@ -764,14 +764,17 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                 </div>
               </div>
             ) : isRoadFrontEndSegment ? (
-              <div className="h-[620px] w-full overflow-y-scroll overflow-x-hidden rounded-xl bg-white/95 ring-1 ring-black/5 md:h-[690px]">
-                <img
-                  src={getOptimizedImageSrc(activeImageSrc)}
-                  alt={activeImageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-auto w-full object-contain"
-                />
+              <div className="relative w-full">
+                <div className="scrollbar-visible h-[620px] w-full overflow-y-scroll overflow-x-hidden rounded-xl bg-white/95 ring-1 ring-black/5 md:h-[690px]">
+                  <img
+                    src={getOptimizedImageSrc(activeImageSrc)}
+                    alt={activeImageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-auto w-full object-contain"
+                  />
+                </div>
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 rounded-b-xl bg-gradient-to-t from-white/60 to-transparent" />
               </div>
             ) : (
               <div
