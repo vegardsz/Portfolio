@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import FullscreenIcon from "../icons/FullscreenIcon";
+
+const VIDEO_BUTTON_CLASS = "flex h-8 w-8 items-center justify-center rounded-md border border-zinc-700 bg-white text-zinc-700 transition-colors duration-200 hover:bg-zinc-800 hover:border-zinc-800 hover:text-white";
+const VIDEO_BUTTON_CLASS_DARK = "flex h-8 w-8 items-center justify-center rounded-md border border-zinc-300 bg-transparent text-zinc-300 transition-colors duration-200 hover:bg-zinc-800 hover:border-zinc-800 hover:text-white";
 
 const RASTER_IMAGE_PATTERN = /\.(png|jpe?g)(\?.*)?$/i;
 
@@ -494,7 +498,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                         prev === 0 ? activeSegment.images.length - 1 : prev - 1
                       )
                     }
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white opacity-85 backdrop-blur-sm transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    className={VIDEO_BUTTON_CLASS_DARK}
                   >
                     <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
                       <path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
@@ -508,7 +512,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                         prev === activeSegment.images.length - 1 ? 0 : prev + 1
                       )
                     }
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white opacity-85 backdrop-blur-sm transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    className={VIDEO_BUTTON_CLASS_DARK}
                   >
                     <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
                       <path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
@@ -521,11 +525,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                   type="button"
                   aria-label={`Expand ${activeSegment.title} image`}
                   onClick={openViewer}
-                  className="relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white/85 backdrop-blur-sm transition-colors duration-200 ease-out hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  className={`relative z-10 ${VIDEO_BUTTON_CLASS_DARK}`}
                 >
-                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-                    <path d="M7 3H3v4M13 3h4v4M17 13v4h-4M3 13v4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
+                  <FullscreenIcon className="h-4 w-4" />
                 </button>
               ) : null}
             </div>
@@ -548,11 +550,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                           type="button"
                           aria-label="View fullscreen"
                           onClick={openGalleryViewer}
-                          className="absolute right-3 top-3 z-10 inline-flex h-7 w-7 items-center justify-center rounded-md border border-white/30 bg-zinc-700/70 text-white opacity-75 backdrop-blur-sm transition-opacity duration-200 hover:opacity-100"
+                          className={`absolute right-3 top-3 z-10 ${VIDEO_BUTTON_CLASS_DARK}`}
                         >
-                          <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
-                            <path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <FullscreenIcon className="h-4 w-4" />
                         </button>
                         <img
                           src={getOptimizedImageSrc(item.image)}
@@ -574,7 +574,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                         prev === 0 ? activeSegment.galleryItems.length - 1 : prev - 1
                       )
                     }
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/30 text-white opacity-75 transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    className={VIDEO_BUTTON_CLASS_DARK}
                   >
                     <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4">
                       <path d="M10.5 3 5.5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -588,7 +588,7 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                         prev === activeSegment.galleryItems.length - 1 ? 0 : prev + 1
                       )
                     }
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/30 text-white opacity-75 transition-opacity duration-200 ease-out hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    className={VIDEO_BUTTON_CLASS_DARK}
                   >
                     <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4">
                       <path d="M5.5 3 10.5 8l-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -639,11 +639,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                     event.stopPropagation();
                     openBeforeAfterViewer();
                   }}
-                  className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300/80 bg-white/92 text-zinc-700 shadow-sm backdrop-blur-sm transition-colors duration-200 ease-out hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 md:right-4 md:top-4"
+                  className={`absolute right-3 top-3 z-10 md:right-4 md:top-4 ${VIDEO_BUTTON_CLASS}`}
                 >
-                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-                    <path d="M7 3H3v4M13 3h4v4M17 13v4h-4M3 13v4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
+                  <FullscreenIcon className="h-4 w-4" />
                 </button>
                 <div
                   className="pointer-events-none absolute inset-y-0 w-px bg-white/75"
@@ -797,11 +795,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                     type="button"
                     aria-label={`Expand ${activeSegment.title} image`}
                     onClick={openViewer}
-                    className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300/80 bg-white/92 text-zinc-700 shadow-sm backdrop-blur-sm transition-colors duration-200 ease-out hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 md:right-4 md:top-4"
+                    className={`absolute right-3 top-3 z-10 md:right-4 md:top-4 ${VIDEO_BUTTON_CLASS}`}
                   >
-                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
-                      <path d="M7 3H3v4M13 3h4v4M17 13v4h-4M3 13v4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
+                    <FullscreenIcon className="h-4 w-4" />
                   </button>
                 ) : null}
                 <img
@@ -882,9 +878,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                   event.stopPropagation();
                   setCarouselIndex((prev) => (prev === 0 ? activeSegment.images.length - 1 : prev - 1));
                 }}
-                className="absolute left-4 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-white/70 text-zinc-700 opacity-70 backdrop-blur-sm transition-opacity duration-200 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:left-8"
+                className={`absolute left-4 top-1/2 z-20 -translate-y-1/2 md:left-8 ${VIDEO_BUTTON_CLASS_DARK}`}
               >
-                <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-5 w-5">
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
                   <path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
@@ -895,9 +891,9 @@ function ProjectSegmentSection({ segments, projectSlug, immersiveBackgrounds = [
                   event.stopPropagation();
                   setCarouselIndex((prev) => (prev === activeSegment.images.length - 1 ? 0 : prev + 1));
                 }}
-                className="absolute right-4 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-white/70 text-zinc-700 opacity-70 backdrop-blur-sm transition-opacity duration-200 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:right-8"
+                className={`absolute right-4 top-1/2 z-20 -translate-y-1/2 md:right-8 ${VIDEO_BUTTON_CLASS_DARK}`}
               >
-                <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-5 w-5">
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4">
                   <path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>

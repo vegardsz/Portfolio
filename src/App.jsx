@@ -1283,7 +1283,7 @@ function ProjectPage({ project }) {
   );
 }
 
-const VIDEO_BUTTON_CLASS = "flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-900 bg-white text-zinc-900 transition-colors duration-200 hover:bg-zinc-900 hover:text-white";
+const VIDEO_BUTTON_CLASS = "flex h-8 w-8 items-center justify-center rounded-md border border-zinc-700 bg-white text-zinc-700 transition-colors duration-200 hover:bg-zinc-800 hover:border-zinc-800 hover:text-white";
 
 function VideoOverlay({ src, onClose }) {
   const videoRef = useRef(null);
